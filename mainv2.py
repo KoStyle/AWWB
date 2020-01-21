@@ -23,6 +23,24 @@ _TOKENS = 'tokens'
 
 ACCESS_TOKENS_DIC = {'CONSUMER_KEY': _NA, 'CONSUMER_SECRET': _NA, 'ACCESS_KEY': _NA, 'ACCESS_SECRET': _NA}
 
+#TODO ideas:
+#Events structure
+    #Kills
+    #Coffees
+    #Draws
+    #Love affairs
+    #Missed hits
+    #Revives
+    #Curses (Boost victim selection probability of a player)
+
+#Event randomization
+
+#EasterEggs for certain combinations
+    #Neutral Manu
+
+#Support for mentions
+
+
 
 class Arpio:
     def __init__(self, name):
@@ -183,6 +201,8 @@ def loadPickle(file):
 
 ##script
 
+
+##TODO I don't remember why was I testing inheritance.... something something participant class?
 class Matrioshka:
     def bang(self):
         print("All of this over-")
