@@ -21,6 +21,7 @@ _CAFE = 'cafes.txt'
 _NA = 'NA'
 _TOKENS = 'tokens'
 
+
 ACCESS_TOKENS_DIC = {'CONSUMER_KEY': _NA, 'CONSUMER_SECRET': _NA, 'ACCESS_KEY': _NA, 'ACCESS_SECRET': _NA}
 
 #TODO ideas:
