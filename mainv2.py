@@ -63,7 +63,7 @@ class Status:
         self.winner = Arpio('N/A')
 
 
-def leerTokens(file):
+def readTokens(file):
     f = open(file, 'r', encoding='latin1')
     line = f.readline()
     while line:
@@ -87,7 +87,7 @@ def chooseKiller(lista):
     return killer
 
 
-def abrirLista(file):
+def readList(file):
     lista = []
     f = open(file, 'r', encoding='latin1')
     line = f.readline()
@@ -100,7 +100,7 @@ def abrirLista(file):
 
 def randomKill(lista, objetos):
     listatmp = []
-    cafes = abrirLista(_CAFE)
+    cafes = readList(_CAFE)
     tweet = ''
     for index in range(len(lista)):
         if lista[index].isAlive:
@@ -142,7 +142,7 @@ def printStatusArpios(lista):
         print(lista[index].name + '-' + str(lista[index].isAlive) + '-' + str(lista[index].kills))
 
 
-def generaImagenStatus(lista):
+def generateStatusImage(lista):
     pic = Image.open(_IMG + _PNG)
     width, height = pic.size
     col = width / 3.0
@@ -163,7 +163,7 @@ def generaImagenStatus(lista):
     pic.save(_IMG + _PNG)
 
 
-def leerArpios(file):
+def readArpios(file):
     lista = []
     f = open(file, 'r', encoding='latin1')
     line = f.readline()
@@ -178,7 +178,7 @@ def leerArpios(file):
     return lista
 
 
-def listaVivos(listar):
+def getSurvivors(listar):
     listatmp = []
     tweet = ''
     for index in range(len(listar)):
