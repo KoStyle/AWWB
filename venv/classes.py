@@ -22,7 +22,7 @@ class Status:
         self.winner = Arpio('N/A')
 
 
-class Collosseum:
+class Colosseum:
     def __init__(self):
         if (os.path.isfile(_ARPIOS + _TXT)):
             self.harpies = loadPickle(_ARPIOS + _TXT)
