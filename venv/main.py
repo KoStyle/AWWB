@@ -54,15 +54,7 @@ def chooseKiller(lista):
     del lista[i]
     return killer
 
-def abrirLista(file):
-    lista = []
-    f = open(file, 'r', encoding='latin1')
-    line = f.readline()
-    while line:
-        lista.append(line.strip())
-        line = f.readline()
 
-    return lista
 
 def randomKill(lista, objetos):
     listatmp=[]

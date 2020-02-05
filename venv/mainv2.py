@@ -43,35 +43,6 @@ ACCESS_TOKENS_DIC = {'CONSUMER_KEY': _NA, 'CONSUMER_SECRET': _NA, 'ACCESS_KEY': 
 
 
 
-class Arpio:
-    def __init__(self, name):
-        self.name = name
-        self.percKill = float(0.7)
-        self.percHelp = float(0.5)
-        self.percCafe = float(0.05)
-        self.percHit = float(0.7)
-        self.isAlive = True
-        self.kills = int(0)
-
-
-class Status:
-    def __init__(self):
-        self.kills = int(0)
-        self.year = int(2019)
-        self.alive = 0
-        self.omedetoo = False
-        self.winner = Arpio('N/A')
-
-
-def readTokens(file):
-    f = open(file, 'r', encoding='latin1')
-    line = f.readline()
-    while line:
-        tokenized = line.split('=')
-        if ACCESS_TOKENS_DIC.get(tokenized[0].strip()) is None and len(tokenized) == 2:
-            ACCESS_TOKENS_DIC[tokenized[0].strip()] = tokenized[1].strip()
-        line = f.readline()
-    return
 
 
 def chooseKiller(lista):
@@ -87,15 +58,6 @@ def chooseKiller(lista):
     return killer
 
 
-def readList(file):
-    lista = []
-    f = open(file, 'r', encoding='latin1')
-    line = f.readline()
-    while line:
-        lista.append(line.strip())
-        line = f.readline()
-
-    return lista
 
 
 def randomKill(lista, objetos):
@@ -137,9 +99,6 @@ def randomKill(lista, objetos):
         return tweet
 
 
-def printStatusArpios(lista):
-    for index in range(len(lista)):
-        print(lista[index].name + '-' + str(lista[index].isAlive) + '-' + str(lista[index].kills))
 
 
 def generateStatusImage(lista):
@@ -163,41 +122,12 @@ def generateStatusImage(lista):
     pic.save(_IMG + _PNG)
 
 
-def readArpios(file):
-    lista = []
-    f = open(file, 'r', encoding='latin1')
-    line = f.readline()
-    while line:
-        lista.append(Arpio(line.strip()))
-        line = f.readline()
-    cantidad = len(lista)
-    for i in range(len(lista)):
-        lista[i].percKill = 1. / cantidad
-
-    lista.sort(key=lambda x: x.name)
-    return lista
 
 
-def getSurvivors(listar):
-    listatmp = []
-    tweet = ''
-    for index in range(len(listar)):
-        if listar[index].isAlive:
-            listatmp.append(listar[index])
-    return listatmp
 
 
-def savePickle(file, obj):
-    f = open(file, 'wb')
-    pickle.dump(obj, f)
-    f.close()
 
 
-def loadPickle(file):
-    f = open(file, 'rb')
-    listaObj = pickle.load(f)
-    f.close()
-    return listaObj
 
 
 ##script
