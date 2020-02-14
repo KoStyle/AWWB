@@ -45,17 +45,7 @@ ACCESS_TOKENS_DIC = {'CONSUMER_KEY': _NA, 'CONSUMER_SECRET': _NA, 'ACCESS_KEY': 
 
 
 
-def chooseKiller(lista):
-    threshold = random.random()
-    random.shuffle(lista)
-    pot = lista[0].percKill
-    i = 0
-    while pot < threshold:
-        pot = pot + lista[i].percKill
-        ++i
-    killer = lista[i]
-    del lista[i]
-    return killer
+
 
 
 
@@ -85,7 +75,7 @@ def randomKill(lista, objetos):
                     objeto = random.choice(objetos)
                     objetos.remove(objeto)
                 else:
-                    objeto = 'una navajita random'
+                    objeto = 'con la "Vara de la aleatoreidad"!'
                 print(tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto)
                 tweet = tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto
                 muerpio.isAlive = False

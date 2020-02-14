@@ -6,9 +6,7 @@ class Arpio:
     def __init__(self, name):
         self.name = name
         self.percKill = float(0.7)
-        self.percHelp = float(0.5)
-        self.percCafe = float(0.05)
-        self.percHit = float(0.7)
+        self.percVictim = float(0.7)
         self.isAlive = True
         self.kills = int(0)
 
@@ -17,7 +15,7 @@ class Status:
     def __init__(self):
         self.kills = int(0)
         self.year = int(2019)
-        self.alive = 0
+        self.alive = int(0)
         self.omedetoo = False
         self.winner = Arpio('N/A')
 
