@@ -2,6 +2,9 @@ import pickle
 import os
 import random
 import math
+
+from pip._internal.utils.deprecation import deprecated
+
 import util
 from util import read_file
 import twython
@@ -13,32 +16,25 @@ from twython import Twython
 from shutil import copyfile
 
 
-#TODO ideas:
-#Events structure
-    #Kills (Done)
-    #Coffees (Done)
-    #Draws
-    #Love affairs
-    #Missed hits
-    #Revives
-    #Curses (Boost victim selection probability of a player)
+# TODO ideas:
+# Events structure
+# Kills (Done)
+# Coffees (Done)
+# Draws
+# Love affairs
+# Missed hits
+# Revives
+# Curses (Boost victim selection probability of a player)
 
-#Event randomization
+# Event randomization
 
-#EasterEggs for certain combinations
-    #Neutral Manu
+# EasterEggs for certain combinations
+# Neutral Manu
 
-#Support for mentions
-
-
+# Support for mentions
 
 
-
-
-
-
-
-
+@deprecated(version='1.0', reason="This method is obsolete thanks to the new [colisseum + events] structure")
 def randomKill(lista, objetos):
     listatmp = []
     cafes = read_file(util.CAFE)
@@ -78,8 +74,6 @@ def randomKill(lista, objetos):
         return tweet
 
 
-
-
 def generateStatusImage(lista):
     pic = Image.open(util.IMG + util.PNG)
     width, height = pic.size
@@ -99,14 +93,6 @@ def generateStatusImage(lista):
         if not lista[i].isAlive:
             draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
     pic.save(util.IMG + util.PNG)
-
-
-
-
-
-
-
-
 
 
 ##script

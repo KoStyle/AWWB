@@ -1,5 +1,6 @@
 import os
-import util
+
+from util import *
 
 
 class Arpio:
@@ -22,18 +23,18 @@ class Status:
 
 class Colosseum:
     def __init__(self):
-        if os.path.isfile(util.ARPIOS + util.TXT):
-            self.harpies = util.load_pickle(util.ARPIOS + util.TXT)
+        if os.path.isfile(ARPIOS + TXT):
+            self.harpies = load_pickle(ARPIOS + TXT)
         else:
-            self.harpies = util.read_harpies('arpios.txt')
+            self.harpies = read_harpies('arpios.txt')
 
-        if os.path.isfile(util.OBJETOS + util.TXT):
-            self.weapons = util.load_pickle(util.OBJETOS + util.TXT)
+        if os.path.isfile(OBJETOS + TXT):
+            self.weapons = load_pickle(OBJETOS + TXT)
         else:
-            self.weapons = util.read_file('objetos.txt')
+            self.weapons = read_file('objetos.txt')
 
-        if os.path.isfile(util.STATUS + util.TXT):
-            self.stats = util.load_pickle(util.STATUS + util.TXT)
+        if os.path.isfile(STATUS + TXT):
+            self.stats = load_pickle(STATUS + TXT)
         else:
             self.stats = Status()
-            self.stats.alive = len(util.get_survivors(self.harpies));
+            self.stats.alive = len(get_survivors(self.harpies));
