@@ -22,18 +22,18 @@ class Status:
 
 class Colosseum:
     def __init__(self):
-        if (os.path.isfile(_ARPIOS + _TXT)):
-            self.harpies = util.loadPickle(_ARPIOS + _TXT)
+        if (os.path.isfile(util.ARPIOS + util.TXT)):
+            self.harpies = util.load_pickle(util.ARPIOS + util.TXT)
         else:
-            self.harpies = util.readArpios('arpios.txt')
+            self.harpies = util.read_harpies('arpios.txt')
 
-        if (os.path.isfile(_OBJETOS + _TXT)):
-            self.weapons = util.loadPickle(_OBJETOS + _TXT)
+        if (os.path.isfile(util.OBJETOS + util.TXT)):
+            self.weapons = util.load_pickle(util.OBJETOS + util.TXT)
         else:
-            self.weapons = util.readList('objetos.txt')
+            self.weapons = util.read_file('objetos.txt')
 
-        if (os.path.isfile(_STATUS + _TXT)):
-            self.stats = util.loadPickle(_STATUS + _TXT)
+        if os.path.isfile(util.STATUS + util.TXT):
+            self.stats = util.load_pickle(util.STATUS + util.TXT)
         else:
             self.stats = Status()
-            self.stats.alive = len(util.getSurvivors(self.harpies));
+            self.stats.alive = len(util.get_survivors(self.harpies));

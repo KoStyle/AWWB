@@ -10,19 +10,6 @@ from PIL import ImageDraw
 from twython import Twython
 from shutil import copyfile
 
-_IMG = "imagen"
-_ARPIOS = "fichero"
-_OBJETOS = 'ficheroObj'
-_STATUS = 'status'
-_TXT = '.txt'
-_PNG = '.png'
-_FONT = "font.ttf"
-_CAFE = 'cafes.txt'
-_NA = 'NA'
-_TOKENS = 'tokens'
-
-
-ACCESS_TOKENS_DIC = {'CONSUMER_KEY': _NA, 'CONSUMER_SECRET': _NA, 'ACCESS_KEY': _NA, 'ACCESS_SECRET': _NA}
 
 #TODO ideas:
 #Events structure

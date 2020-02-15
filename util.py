@@ -2,21 +2,33 @@ import pickle
 
 from classes import Arpio
 
+IMG = "imagen"
+ARPIOS = "fichero"
+OBJETOS = 'ficheroObj'
+STATUS = 'status'
+TXT = '.txt'
+PNG = '.png'
+FONT = "font.ttf"
+CAFE = 'cafes.txt'
+NA = 'NA'
+TOKENS = 'tokens'
+ACCESS_TOKENS_DIC = {'CONSUMER_KEY': NA, 'CONSUMER_SECRET': NA, 'ACCESS_KEY': NA, 'ACCESS_SECRET': NA}
 
-def loadPickle(file):
+
+def load_pickle(file):
     f = open(file, 'rb')
     listaObj = pickle.load(f)
     f.close()
     return listaObj
 
 
-def savePickle(file, obj):
+def save_pickle(file, obj):
     f = open(file, 'wb')
     pickle.dump(obj, f)
     f.close()
 
 
-def readArpios(file):
+def read_harpies(file):
     lista = []
     f = open(file, 'r', encoding='latin1')
     line = f.readline()
@@ -31,23 +43,22 @@ def readArpios(file):
     return lista
 
 
-def printStatusArpios(lista):
+def print_status_harpies(lista):
     for index in range(len(lista)):
         print(lista[index].name + '-' + str(lista[index].isAlive) + '-' + str(lista[index].kills))
 
 
-def readList(file):
+def read_file(file):
     lista = []
     f = open(file, 'r', encoding='latin1')
     line = f.readline()
     while line:
         lista.append(line.strip())
         line = f.readline()
-
     return lista
 
 
-def getSurvivors(listar):
+def get_survivors(listar):
     listatmp = []
     tweet = ''
     for index in range(len(listar)):
@@ -56,7 +67,7 @@ def getSurvivors(listar):
     return listatmp
 
 
-def readTokens(file):
+def read_tokens(file):
     f = open(file, 'r', encoding='latin1')
     line = f.readline()
     while line:

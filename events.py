@@ -10,12 +10,10 @@ class Assasination:
         self.curretTweet = ""
         self.harpies = harpies
 
-
     def bang(self):
         return "Killer Tweet"
 
-
-    def chooseKiller(self, tmpHarpies):
+    def choose_killer(self, tmpHarpies):
         threshold = random.random()
         random.shuffle(tmpHarpies)
 
@@ -29,6 +27,7 @@ class Assasination:
         del tmpHarpies[i]
         return killer
 
+
 class Coffee:
     def __init__(self, frecuency, harpies):
         self.frecuency = frecuency
@@ -36,26 +35,23 @@ class Coffee:
         self.curretTweet = ""
         self.harpies = harpies
 
-
     def bang(self):
+        tmpHarpies = util.get_survivors(self.harpies)
+        drinkers = self.choose_drinkers(tmpHarpies)
+        tweet = "Coffee tweet"
 
-        tmpHarpies=util.getSurvivors(self.harpies)
-        drinkers=self.chooseDrinkers(tmpHarpies)
-        tweet= "Coffee tweet"
-
-        #TODO tweet construction
+        # TODO tweet construction
 
         return tweet
 
-    def chooseDrinkers(self, tmpHarpies):
-        drinkers=[]
-        nDrinkers= random.randint(2, 5)
+    def choose_drinkers(self, tmpHarpies):
+        drinkers = []
+        nDrinkers = random.randint(2, 5)
 
         random.shuffle(tmpHarpies)
 
-
         for i in range(0, nDrinkers):
-            auxHarpy=random.choice(tmpHarpies)
+            auxHarpy = random.choice(tmpHarpies)
             tmpHarpies.remove(auxHarpy)
             drinkers.append(auxHarpy)
 
