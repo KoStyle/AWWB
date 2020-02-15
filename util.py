@@ -1,3 +1,8 @@
+import pickle
+
+from classes import Arpio
+
+
 def loadPickle(file):
     f = open(file, 'rb')
     listaObj = pickle.load(f)
@@ -9,6 +14,7 @@ def savePickle(file, obj):
     f = open(file, 'wb')
     pickle.dump(obj, f)
     f.close()
+
 
 def readArpios(file):
     lista = []
@@ -24,9 +30,11 @@ def readArpios(file):
     lista.sort(key=lambda x: x.name)
     return lista
 
+
 def printStatusArpios(lista):
     for index in range(len(lista)):
         print(lista[index].name + '-' + str(lista[index].isAlive) + '-' + str(lista[index].kills))
+
 
 def readList(file):
     lista = []
@@ -38,6 +46,7 @@ def readList(file):
 
     return lista
 
+
 def getSurvivors(listar):
     listatmp = []
     tweet = ''
@@ -45,6 +54,7 @@ def getSurvivors(listar):
         if listar[index].isAlive:
             listatmp.append(listar[index])
     return listatmp
+
 
 def readTokens(file):
     f = open(file, 'r', encoding='latin1')
