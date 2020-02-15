@@ -1,3 +1,5 @@
+import random
+
 import util
 
 
@@ -10,7 +12,7 @@ class Assasination:
 
 
     def bang(self):
-        return "Killer Tweett"
+        return "Killer Tweet"
 
 
     def chooseKiller(self, tmpHarpies):
@@ -41,7 +43,7 @@ class Coffee:
         drinkers=self.chooseDrinkers(tmpHarpies)
         tweet= "Coffee tweet"
 
-        //TODO tweet construction
+        #TODO tweet construction
 
         return tweet
 
