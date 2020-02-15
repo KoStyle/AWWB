@@ -2,6 +2,8 @@ import pickle
 import os
 import random
 import math
+import util
+from util import read_file
 import twython
 import datetime
 from PIL import Image
@@ -13,8 +15,8 @@ from shutil import copyfile
 
 #TODO ideas:
 #Events structure
-    #Kills
-    #Coffees
+    #Kills (Done)
+    #Coffees (Done)
     #Draws
     #Love affairs
     #Missed hits
@@ -39,14 +41,14 @@ from shutil import copyfile
 
 def randomKill(lista, objetos):
     listatmp = []
-    cafes = readList(_CAFE)
+    cafes = read_file(CAFE)
     tweet = ''
     for index in range(len(lista)):
         if lista[index].isAlive:
             listatmp.append(lista[index])
 
     if len(listatmp) > 1:
-        tmpio = chooseKiller(listatmp)
+        tmpio = choose_killer(listatmp)
         muerpio = random.choice(listatmp)
         if random.random() < 0.05:  # suicidio 5%
             print(tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet')
@@ -79,13 +81,13 @@ def randomKill(lista, objetos):
 
 
 def generateStatusImage(lista):
-    pic = Image.open(_IMG + _PNG)
+    pic = Image.open(util.IMG + util.PNG)
     width, height = pic.size
     col = width / 3.0
     rows = math.ceil(len(lista) / 3.0)
     row = height / rows
     draw = ImageDraw.Draw(pic)
-    font = ImageFont.truetype(_FONT, 20)
+    font = ImageFont.truetype(util.FONT, 20)
     draw.rectangle((0, 0, width, height), (255, 255, 255))
 
     for i in range(len(lista)):
@@ -96,7 +98,7 @@ def generateStatusImage(lista):
         draw.text((x, y), lista[i].name + ' (' + str(lista[i].kills) + ' kills)', (0, 0, 0), font=font)
         if not lista[i].isAlive:
             draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
-    pic.save(_IMG + _PNG)
+    pic.save(util.IMG + util.PNG)
 
 
 

@@ -9,6 +9,7 @@ from PIL import ImageFont
 from PIL import ImageDraw
 from twython import Twython
 from shutil import copyfile
+from deprecated import deprecated
 
 _IMG="imagen"
 _ARPIOS="fichero"
@@ -55,7 +56,7 @@ def chooseKiller(lista):
     return killer
 
 
-
+@deprecated(version='1.0', reason="This method is obsolete thanks to the new [colisseum + events] structure")
 def randomKill(lista, objetos):
     listatmp=[]
     cafes=abrirLista(_CAFE)
@@ -89,7 +90,7 @@ def randomKill(lista, objetos):
                 tmpio.kills= tmpio.kills +1
         return tweet
     else:
-        #Deprecated
+        # Deprecated
         print('Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda')
         tweet='Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda'
         return tweet

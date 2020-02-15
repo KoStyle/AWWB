@@ -22,12 +22,12 @@ class Status:
 
 class Colosseum:
     def __init__(self):
-        if (os.path.isfile(util.ARPIOS + util.TXT)):
+        if os.path.isfile(util.ARPIOS + util.TXT):
             self.harpies = util.load_pickle(util.ARPIOS + util.TXT)
         else:
             self.harpies = util.read_harpies('arpios.txt')
 
-        if (os.path.isfile(util.OBJETOS + util.TXT)):
+        if os.path.isfile(util.OBJETOS + util.TXT):
             self.weapons = util.load_pickle(util.OBJETOS + util.TXT)
         else:
             self.weapons = util.read_file('objetos.txt')
