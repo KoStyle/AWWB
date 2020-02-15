@@ -1,6 +1,7 @@
 import random
 
 import util
+from util import *
 
 
 class Assasination:
@@ -36,11 +37,21 @@ class Coffee:
         self.harpies = harpies
 
     def bang(self):
-        tmpHarpies = util.get_survivors(self.harpies)
+        coffees = read_file(CAFE)
+
+        tmpHarpies = get_survivors(self.harpies)
         drinkers = self.choose_drinkers(tmpHarpies)
         tweet = "Coffee tweet"
 
-        # TODO tweet construction
+        for i in range(0, len(drinkers)):
+            if i == len(drinkers) - 1:
+                tweet += drinkers[i].name + " "
+            elif i == len(drinkers) - 2:
+                tweet += drinkers[i].name + " and  "
+            else:
+                tweet += drinkers[i].name + ", "
+
+        tweet += "se han %s. La vida sigue." % random.choice(coffees)
 
         return tweet
 

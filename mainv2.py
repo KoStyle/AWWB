@@ -41,7 +41,7 @@ from shutil import copyfile
 
 def randomKill(lista, objetos):
     listatmp = []
-    cafes = read_file(CAFE)
+    cafes = read_file(util.CAFE)
     tweet = ''
     for index in range(len(lista)):
         if lista[index].isAlive:
