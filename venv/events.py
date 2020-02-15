@@ -10,7 +10,7 @@ class Assasination:
 
 
     def bang(self):
-        return "Killer Tweet"
+        return "Killer Tweett"
 
 
     def chooseKiller(self, tmpHarpies):
