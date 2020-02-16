@@ -8,20 +8,32 @@ from util import *
 # TODO: Externalise all choice methods to choice policies so they can be reused (suicide will have a choose_killer to use that stat. Maybe class with the static methods
 # Possible policies based on the stat used. Killer policy, helper policy, victim policy
 class Assasination:
-    def __init__(self, frecuency, harpies, killerPicker, victimPicker):
+    def __init__(self, frecuency, harpies, weapons, killerPicker, victimPicker):
         self.frecuency = frecuency
         self.lastTweet = ""
         self.curretTweet = ""
         self.harpies = harpies
         self.killerPicker = killerPicker
         self.victimPicker = victimPicker
+        self.weapons = weapons
 
     def bang(self):
         tmpHarpies = get_survivors(self.harpies)
         assasinpy = self.killerPicker.pick(tmpHarpies)
         victimpy = self.victimPicker.pick(tmpHarpies)
+        if len(self.weapons) >= 1:
+            motif = random.choice(self.weapons)
+            self.weapons.remove(motif)
+        else:
+            motif = 'una navajita random'
 
-        return "Killer Tweet"
+        #TODO: Implement random help
+        tweet = assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
+        victimpy.isAlive = False
+        assasinpy.percKill += victimpy.percKill
+        assasinpy.kills += 1
+
+        return tweet
 
     @deprecated(version='1.1', reason="Picking functions changed into property so they can be reused")
     def choose_killer(self, tmpHarpies):

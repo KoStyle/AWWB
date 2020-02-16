@@ -37,4 +37,6 @@ class Colosseum:
             self.stats = load_pickle(STATUS + TXT)
         else:
             self.stats = Status()
-            self.stats.alive = len(get_survivors(self.harpies));
+            self.stats.alive = len(get_survivors(self.harpies))
+
+        #TODO: Initialize and load all events in a list (pass weapons to killEvent)
