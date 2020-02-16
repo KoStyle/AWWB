@@ -6,6 +6,7 @@ import math
 from pip._internal.utils.deprecation import deprecated
 
 import util
+from classes import Colosseum
 from util import read_file
 import twython
 import datetime
@@ -34,45 +35,45 @@ from shutil import copyfile
 
 # Support for mentions
 
-
-@deprecated(version='1.0', reason="This method is obsolete thanks to the new [colisseum + events] structure")
-def randomKill(lista, objetos):
-    listatmp = []
-    cafes = read_file(util.CAFE)
-    tweet = ''
-    for index in range(len(lista)):
-        if lista[index].isAlive:
-            listatmp.append(lista[index])
-
-    if len(listatmp) > 1:
-        tmpio = choose_killer(listatmp)
-        muerpio = random.choice(listatmp)
-        if random.random() < 0.05:  # suicidio 5%
-            print(tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet')
-            tweet = tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
-            muerpio.percKill = tmpio.percKill + muerpio.percKill
-            tmpio.isAlive = False
-        else:
-            if random.random() < 0.025:  # café 2.5%
-                print(tmpio.name + ' se ha %s con ' % random.choice(cafes) + muerpio.name + '. La vida sigue.')
-                tweet = tmpio.name + ' se ha %s con ' % random.choice(cafes) + muerpio.name + '. La vida sigue.'
-            else:
-                if len(objetos) >= 1:
-                    objeto = random.choice(objetos)
-                    objetos.remove(objeto)
-                else:
-                    objeto = 'con la "Vara de la aleatoreidad"!'
-                print(tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto)
-                tweet = tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto
-                muerpio.isAlive = False
-                tmpio.percKill = tmpio.percKill + muerpio.percKill
-                tmpio.kills = tmpio.kills + 1
-        return tweet
-    else:
-        # Deprecated
-        print('Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda')
-        tweet = 'Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda'
-        return tweet
+#
+# @deprecated(version='1.0', reason="This method is obsolete thanks to the new [colisseum + events] structure")
+# def randomKill(lista, objetos):
+#     listatmp = []
+#     cafes = read_file(util.CAFE)
+#     tweet = ''
+#     for index in range(len(lista)):
+#         if lista[index].isAlive:
+#             listatmp.append(lista[index])
+#
+#     if len(listatmp) > 1:
+#         tmpio = choose_killer(listatmp)
+#         muerpio = random.choice(listatmp)
+#         if random.random() < 0.05:  # suicidio 5%
+#             print(tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet')
+#             tweet = tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
+#             muerpio.percKill = tmpio.percKill + muerpio.percKill
+#             tmpio.isAlive = False
+#         else:
+#             if random.random() < 0.025:  # café 2.5%
+#                 print(tmpio.name + ' se ha %s con ' % random.choice(cafes) + muerpio.name + '. La vida sigue.')
+#                 tweet = tmpio.name + ' se ha %s con ' % random.choice(cafes) + muerpio.name + '. La vida sigue.'
+#             else:
+#                 if len(objetos) >= 1:
+#                     objeto = random.choice(objetos)
+#                     objetos.remove(objeto)
+#                 else:
+#                     objeto = 'con la "Vara de la aleatoreidad"!'
+#                 print(tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto)
+#                 tweet = tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto
+#                 muerpio.isAlive = False
+#                 tmpio.percKill = tmpio.percKill + muerpio.percKill
+#                 tmpio.kills = tmpio.kills + 1
+#         return tweet
+#     else:
+#         # Deprecated
+#         print('Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda')
+#         tweet = 'Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda'
+#         return tweet
 
 
 def generateStatusImage(lista):
@@ -98,34 +99,38 @@ def generateStatusImage(lista):
 
 ##script
 
-
-#TODO I don't remember why was I testing inheritance.... something something participant class?
-class Matrioshka:
-    def bang(self):
-        print("All of this over-")
+colosseum = Colosseum()
+while not colosseum.is_over():
+    colosseum.let_the_games_begin()
 
 
-class Baba(Matrioshka):
-    def bang(self):
-        print("-a car and-")
-
-
-class Yaga(Matrioshka):
-    def bang(self):
-        print("-a fucking puppy")
-
-
-a = Matrioshka()
-b = Baba()
-c = Yaga()
-
-lista = []
-lista.append(a)
-lista.append(b)
-lista.append(c)
-
-for i in range(len(lista)):
-    lista[i].bang()
+# #TODO I don't remember why was I testing inheritance.... something something participant class?
+# class Matrioshka:
+#     def bang(self):
+#         print("All of this over-")
+#
+#
+# class Baba(Matrioshka):
+#     def bang(self):
+#         print("-a car and-")
+#
+#
+# class Yaga(Matrioshka):
+#     def bang(self):
+#         print("-a fucking puppy")
+#
+#
+# a = Matrioshka()
+# b = Baba()
+# c = Yaga()
+#
+# lista = []
+# lista.append(a)
+# lista.append(b)
+# lista.append(c)
+#
+# for i in range(len(lista)):
+#     lista[i].bang()
 
 # if os.path.isfile(_ARPIOS + _TXT):
 #     lista = loadPickle(_ARPIOS + _TXT)

@@ -7,7 +7,7 @@ from util import *
 
 class Assassination:
     def __init__(self, frequency, harpies, weapons, killerPicker, victimPicker):
-        self.frecuency = frequency
+        self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.harpies = harpies
@@ -35,6 +35,9 @@ class Assassination:
 
         return tweet
 
+    def get_frequency(self):
+        return self.frequency
+
     @deprecated(version='1.1', reason="Picking functions changed into property so they can be reused")
     def choose_killer(self, tmpHarpies):
         threshold = random.random()
@@ -53,7 +56,7 @@ class Assassination:
 
 class Coffee:
     def __init__(self, frequency, harpies, picker):
-        self.frecuency = frequency
+        self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.harpies = harpies
@@ -77,6 +80,9 @@ class Coffee:
         tweet += "se han %s. La vida sigue." % random.choice(coffees)
 
         return tweet
+
+    def get_frequency(self):
+        return self.frequency
 
     def choose_drinkers(self, tmpHarpies):
         drinkers = []
@@ -110,6 +116,8 @@ class Suicide:
         tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
         return tweet
 
+    def get_frequency(self):
+        return self.frequency
 
 # Both pickers come without withdrawing from the list
 class Revive:
@@ -142,6 +150,8 @@ class Revive:
         for auxpy in survivors:
             auxpy.percKill -= killDecrement
 
+    def get_frequency(self):
+        return self.frequency
 
 class Curse:
     def __init__(self, frequency, harpies, shamanPicker, cursedPicker):
@@ -162,3 +172,6 @@ class Curse:
 
         # TODO Create flavour text for curses
         return shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + ". Se ha convertido en un imán para el peligro"
+
+    def get_frequency(self):
+        return self.frequency

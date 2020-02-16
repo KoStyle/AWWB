@@ -2,14 +2,14 @@ import pickle
 
 from classes import Arpio
 
-IMG = "imagen"
-ARPIOS = "fichero"
-OBJETOS = 'ficheroObj'
-STATUS = 'status'
+IMG = "files/imagen"
+ARPIOS = "files/fichero"
+OBJETOS = 'files/ficheroObj'
+STATUS = 'files/status'
 TXT = '.txt'
 PNG = '.png'
-FONT = "font.ttf"
-CAFE = 'cafes.txt'
+FONT = "files/font.ttf"
+CAFE = 'files/cafes.txt'
 NA = 'NA'
 TOKENS = 'tokens'
 ACCESS_TOKENS_DIC = {'CONSUMER_KEY': NA, 'CONSUMER_SECRET': NA, 'ACCESS_KEY': NA, 'ACCESS_SECRET': NA}
