@@ -129,6 +129,7 @@ class Revive:
 
         # Resurrected gets half of the victim pecentaje of the shaman
         # Fixme: Somethin something think how to fix total amount of percKill. An Alfakiller is still an alfa-killer?, or is it reset based on the amount of alive harpies?, or total harpies? Oh mighty Satan tell me how to implement it
+        # Fixme: I know! calculate the proportion based on the survivors, and then substract a part of that percKill form all of the. perckill= 1/survivors. And then adjust the survivors with perckill-= 1/(survivors*2)
         corpsepy.isAlive = True
         corpsepy.percVictim += shamanpy.percVictim / 2.
         shamanpy.percVictim = shamanpy.percVictim / 2.

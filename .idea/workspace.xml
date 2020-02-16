@@ -43,8 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/events.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="694">
-              <caret line="153" column="49" selection-start-line="153" selection-start-column="49" selection-end-line="153" selection-end-column="49" />
+            <state relative-caret-position="626">
+              <caret line="142" column="30" lean-forward="true" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -365,7 +365,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581816340614</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Implemented Curse event (it doubles the victim percentage of the course's target. The caster steals half of the killing percentage">
+      <created>1581852575650</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1581852575650</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -458,7 +465,8 @@
     <MESSAGE value="Comments and refactoring" />
     <MESSAGE value="Minor stuff" />
     <MESSAGE value="Implemented Revive event" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented Revive event" />
+    <MESSAGE value="Implemented Curse event (it doubles the victim percentage of the course's target. The caster steals half of the killing percentage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented Curse event (it doubles the victim percentage of the course's target. The caster steals half of the killing percentage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -637,8 +645,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/events.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="694">
-          <caret line="153" column="49" selection-start-line="153" selection-start-column="49" selection-end-line="153" selection-end-column="49" />
+        <state relative-caret-position="626">
+          <caret line="142" column="30" lean-forward="true" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
