@@ -22,7 +22,7 @@ from shutil import copyfile
 # Coffees (Done)
 # Suicides (Done)
 # Draws
-# Love affairs
+# Love affairs (possibility of magnetismn between player (makes them more likely to kill eachother))
 # Missed hits/defense teamups
 # Revives
 # Curses (Boost victim selection probability of a player could happen if a teamup defense fails)

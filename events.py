@@ -27,6 +27,7 @@ class Assasination:
             motif = 'una navajita random'
 
         # TODO: Implement random help
+        # TODO: Redistribute victim percentage (maybe give it to the killer, if he doesn't kill he is more likely to be killed???)
 
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
@@ -109,3 +110,27 @@ class Suicide:
 
         tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
         return tweet
+
+
+class Revive:
+    def __init__(self, frequency, harpies, shamanPicker, corpsePicker):
+        self.frequency = frequency
+        self.harpies = harpies
+        self.shamanPiker = shamanPicker
+        self.corpsePicker = corpsePicker
+
+    def bang(self):
+        # TODO create flavour text for revives
+        tmpHarpies = get_survivors(self.harpies)
+        deadHarpies = get_corpses(self.harpies)
+
+        shamanpy: Arpio = self.shamanPiker.pick(tmpHarpies)
+        corpsepy: Arpio = self.corpsePicker.pick(deadHarpies)
+
+        # Resurrected gets half of the victim pecentaje of the shaman
+        # Fixme: Somethin something think how to fix total amount of percKill. An Alfakiller is still an alfa-killer?, or is it reset based on the amount of alive harpies?, or total harpies? Oh mighty Satan tell me how to implement it
+        corpsepy.isAlive = True
+        corpsepy.percVictim += shamanpy.percVictim / 2
+        shamanpy.percVictim = shamanpy.percVictim / 2
+
+        return shamanpy.name + " ha revivido a " + corpsepy.name +". Alabado sea Gilgamesh."
