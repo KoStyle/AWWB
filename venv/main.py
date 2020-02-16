@@ -20,10 +20,10 @@ _PNG='.png'
 _FONT="font.ttf"
 _CAFE='cafes.txt'
 
-CONSUMER_KEY = 'FneOC7OhVe56rmKsI18j9N27q'
-CONSUMER_SECRET = 'oWr1yvmOh4XMcbwbvVrmxEeKJPps07tGWQSPrRg2Dmj2ViUdE2'
-ACCESS_KEY = '1148576729021263873-uGxriRhJPPh7Gzt92bUpZi1KQNWVBy'
-ACCESS_SECRET = 'adnhTNH0YXibyjK6XkW9xxpBiDZS60pkYU2cWsf21EvF0'
+CONSUMER_KEY = 'Fplacehjoder'
+CONSUMER_SECRET = 'oWr1yvmOhplaceholder4XMc'
+ACCESS_KEY = '1148placeholder57'
+ACCESS_SECRET = 'adplaceholder'
 
 class Arpio:
     def __init__(self, name):

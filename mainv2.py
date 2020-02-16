@@ -20,13 +20,14 @@ from shutil import copyfile
 # Events structure
 # Kills (Done)
 # Coffees (Done)
+# Suicides (Done)
 # Draws
 # Love affairs
-# Missed hits
+# Missed hits/defense teamups
 # Revives
-# Curses (Boost victim selection probability of a player)
+# Curses (Boost victim selection probability of a player could happen if a teamup defense fails)
 
-# Event randomization
+# Event randomization (in progress)
 
 # EasterEggs for certain combinations
 # Neutral Manu
