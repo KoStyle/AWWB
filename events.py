@@ -5,7 +5,7 @@ from pip._internal.utils.deprecation import deprecated
 from util import *
 
 
-class Assasination:
+class Assassination:
     def __init__(self, frequency, harpies, weapons, killerPicker, victimPicker):
         self.frecuency = frequency
         self.lastTweet = ""

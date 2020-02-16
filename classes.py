@@ -1,6 +1,7 @@
-import os
-
+from events import *
+from pickers import *
 from util import *
+import os
 
 
 class Arpio:
@@ -39,4 +40,9 @@ class Colosseum:
             self.stats = Status()
             self.stats.alive = len(get_survivors(self.harpies))
 
-        #TODO: Initialize and load all events in a list (pass weapons to killEvent)
+        self.events = []
+        self.events.append(Assassination(90, self.harpies, self.weapons, KillerPicker(), VictimPicker()))
+        self.events.append(Coffee(2.5, self.harpies, RandomPicker()))
+        self.events.append(Suicide(2.5, self.harpies, KillerPicker()))
+        self.events.append(Revive(2.5, self.harpies, RandomPickerNoDelete(), RandomPickerNoDelete()))
+        self.events.append(Curse(2.5, self.harpies, RandomPicker(), RandomPicker()))
