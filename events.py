@@ -26,7 +26,6 @@ class Assasination:
         else:
             motif = 'una navajita random'
 
-        # TODO: Implement random help
         # TEST how good does the victim perc distribution
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False

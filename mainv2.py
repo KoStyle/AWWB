@@ -24,8 +24,8 @@ from shutil import copyfile
 # Draws
 # Love affairs (possibility of magnetismn between player (makes them more likely to kill eachother))
 # Missed hits/defense teamups
-# Revives
-# Curses (Boost victim selection probability of a player could happen if a teamup defense fails)
+# Revives (Done)
+# Curses (Done)
 
 # Event randomization (in progress)
 
@@ -99,7 +99,7 @@ def generateStatusImage(lista):
 ##script
 
 
-##TODO I don't remember why was I testing inheritance.... something something participant class?
+#TODO I don't remember why was I testing inheritance.... something something participant class?
 class Matrioshka:
     def bang(self):
         print("All of this over-")
