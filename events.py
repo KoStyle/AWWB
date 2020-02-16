@@ -1,8 +1,7 @@
-import random
-
-from pip._internal.utils.deprecation import deprecated
-
+from classes import *
 from util import *
+from pip._internal.utils.deprecation import deprecated
+import random
 
 
 class Assassination:
@@ -15,7 +14,10 @@ class Assassination:
         self.victimPicker = victimPicker
         self.weapons = weapons
 
-    def bang(self):
+    def bang(self, stats: Status):
+        if stats.omedetoo:
+            return "Se acabó pinche"
+
         tmpHarpies = get_survivors(self.harpies)
         assasinpy: Arpio = self.killerPicker.pick(tmpHarpies)
         victimpy: Arpio = self.victimPicker.pick(tmpHarpies)
@@ -33,6 +35,11 @@ class Assassination:
         assasinpy.percVictim += victimpy.percVictim / 2.
         assasinpy.kills += 1
 
+        stats.kills += 1
+        stats.alive -= 1
+        if len(tmpHarpies) == 0:  # should be empty after the last standoff
+            stats.omedetoo = True
+            stats.winner = assasinpy
         return tweet
 
     def get_frequency(self):
@@ -62,7 +69,10 @@ class Coffee:
         self.harpies = harpies
         self.picker = picker
 
-    def bang(self):
+    def bang(self, stats):
+        if stats.omedetoo:
+            return "Se acabó pinche"
+
         coffees = read_file(CAFE)
 
         tmpHarpies = get_survivors(self.harpies)
@@ -103,7 +113,10 @@ class Suicide:
         self.harpies = harpies
         self.killerPicker = killerPiker
 
-    def bang(self):
+    def bang(self, stats: Status):
+        if stats.omedetoo:
+            return "Se acabó pinche"
+
         tmpHarpies = get_survivors(self.harpies)
         suicidalpy = self.killerPicker.pick(tmpHarpies)
         suicidalpy.isAlive = False
@@ -113,11 +126,17 @@ class Suicide:
         for harpy in tmpHarpies:
             harpy.percKill += share
 
+        stats.kills += 1
+        stats.alive -= 1
+        if len(tmpHarpies) == 1:  # should be only one harpy left after the last suicide
+            stats.omedetoo = True
+            stats.winner = tmpHarpies[0]
         tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
         return tweet
 
     def get_frequency(self):
         return self.frequency
+
 
 # Both pickers come without withdrawing from the list
 class Revive:
@@ -127,8 +146,12 @@ class Revive:
         self.shamanPiker = shamanPicker
         self.corpsePicker = corpsePicker
 
-    def bang(self):
+    def bang(self, stats: Status):
         # TODO create flavour text for revives
+
+        if stats.omedetoo:
+            return "Se acabó pinche"
+
         tmpHarpies = get_survivors(self.harpies)
         deadHarpies = get_corpses(self.harpies)
 
@@ -141,6 +164,9 @@ class Revive:
         corpsepy.percVictim += shamanpy.percVictim / 2.
         shamanpy.percVictim = shamanpy.percVictim / 2.
         self.redistribute_kill_percentage(corpsepy, tmpHarpies)
+
+        stats.alive += 1
+
         return shamanpy.name + " ha revivido a " + corpsepy.name + ". Alabado sea Gilgamesh."
 
     def redistribute_kill_percentage(self, corpsepy, survivors):
@@ -153,6 +179,7 @@ class Revive:
     def get_frequency(self):
         return self.frequency
 
+
 class Curse:
     def __init__(self, frequency, harpies, shamanPicker, cursedPicker):
         self.frequency = frequency
@@ -160,7 +187,11 @@ class Curse:
         self.shamanPiker = shamanPicker
         self.cursedPicker = cursedPicker
 
-    def bang(self):
+    def bang(self, stats):
+
+        if stats.omedetoo:
+            return "Se acabó pinche"
+
         tmpHarpies = get_survivors(self.harpies)
 
         shamanpy: Arpio = self.shamanPiker.pick(tmpHarpies)

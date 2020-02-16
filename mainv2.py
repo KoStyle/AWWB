@@ -103,7 +103,6 @@ colosseum = Colosseum()
 while not colosseum.is_over():
     colosseum.let_the_games_begin()
 
-
 # #TODO I don't remember why was I testing inheritance.... something something participant class?
 # class Matrioshka:
 #     def bang(self):

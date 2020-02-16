@@ -1,5 +1,5 @@
 import random
-from classes import *
+
 
 
 class KillerPicker:

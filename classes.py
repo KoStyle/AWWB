@@ -47,16 +47,15 @@ class Colosseum:
         self.events.append(Revive(2.5, self.harpies, RandomPickerNoDelete(), RandomPickerNoDelete()))
         self.events.append(Curse(2.5, self.harpies, RandomPicker(), RandomPicker()))
 
-
     def i_command_you_to_pick_the_event(self):
         threshold = random.random()
         random.shuffle(self.events)
 
-        #TODO Normalize the frequencies after initialization of colosseum
-        pot = self.events[0].get_frequency()/100.
+        # TODO Normalize the frequencies after initialization of colosseum
+        pot = self.events[0].get_frequency() / 100.
         i = 0
         while pot < threshold:
-            pot += self.events[i].get_frequency()/100.
+            pot += self.events[i].get_frequency() / 100.
             i += 1
 
         return self.events[i]
@@ -69,7 +68,7 @@ class Colosseum:
             return False
         else:
             event = self.i_command_you_to_pick_the_event()
-            tweet= event.bang()
+            tweet = event.bang()
 
             print(tweet)
             return True
