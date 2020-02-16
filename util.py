@@ -11,15 +11,6 @@ TOKENS = 'tokens'
 ACCESS_TOKENS_DIC = {'CONSUMER_KEY': NA, 'CONSUMER_SECRET': NA, 'ACCESS_KEY': NA, 'ACCESS_SECRET': NA}
 
 
-
-
-
-
-
-
-
-
-
 def print_status_harpies(lista):
     for index in range(len(lista)):
         print(lista[index].name + '-' + str(lista[index].isAlive) + '-' + str(lista[index].kills))

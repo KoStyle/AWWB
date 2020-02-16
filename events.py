@@ -3,6 +3,7 @@ from pip._internal.utils.deprecation import deprecated
 import random
 
 
+# TODO try to refactor the bangs to streamline then. Find all the redundant code and do somethin like with the pickers
 class Assassination:
     def __init__(self, frequency, harpies, weapons, killerPicker, victimPicker):
         self.frequency = frequency
@@ -50,21 +51,6 @@ class Assassination:
     def get_frequency(self):
         return self.frequency
 
-    # Deprecated: Functionality migrated to a event model
-    def choose_killer(self, tmpHarpies):
-        threshold = random.random()
-        random.shuffle(tmpHarpies)
-
-        pot = tmpHarpies[0].percKill
-        i = 0
-        while pot < threshold:
-            pot = pot + tmpHarpies[i].percKill
-            i += 1
-
-        killer = tmpHarpies[i]
-        del tmpHarpies[i]
-        return killer
-
 
 class Coffee:
     def __init__(self, frequency, harpies, picker):
@@ -101,7 +87,7 @@ class Coffee:
 
     def choose_drinkers(self, tmpHarpies):
         drinkers = []
-        maxDrinkers= min(len(tmpHarpies), 5)
+        maxDrinkers = min(len(tmpHarpies), 5)
         nDrinkers = random.randint(2, maxDrinkers)
 
         random.shuffle(tmpHarpies)
@@ -200,7 +186,7 @@ class Curse:
         self.cursedPicker = cursedPicker
 
     def bang(self, stats):
-        if stats.omedetoo or stats.alive<2:
+        if stats.omedetoo or stats.alive < 2:
             return "Se acabó pinche"
 
         tmpHarpies = get_survivors(self.harpies)
