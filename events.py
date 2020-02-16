@@ -82,7 +82,7 @@ class Coffee:
             if i == len(drinkers) - 1:
                 tweet += drinkers[i].name + " "
             elif i == len(drinkers) - 2:
-                tweet += drinkers[i].name + " and  "
+                tweet += drinkers[i].name + " y "
             else:
                 tweet += drinkers[i].name + ", "
 
