@@ -11,8 +11,9 @@ class KillerPicker:
         pot = harpies[0].percKill
         i = 0
         while pot < threshold:
-            pot = pot + harpies[i].percKill
             i += 1
+            pot = pot + harpies[i].percKill
+
 
         killer = harpies[i]
         del harpies[i]
@@ -28,8 +29,9 @@ class VictimPicker:
         pot = harpies[0].percVictim
         i = 0
         while pot < threshold:
-            pot = pot + harpies[i].percVictim
             i += 1
+            pot = pot + harpies[i].percVictim
+
 
         victim = harpies[i]
         del harpies[i]

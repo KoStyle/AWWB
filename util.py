@@ -1,11 +1,7 @@
-import pickle
-
-from classes import Arpio
-
 IMG = "files/imagen"
-ARPIOS = "files/fichero"
-OBJETOS = 'files/ficheroObj'
-STATUS = 'files/status'
+ARPIOS = "files/pickle_harpies"
+OBJETOS = 'files/piclke_weapons'
+STATUS = 'files/pickle_status'
 TXT = '.txt'
 PNG = '.png'
 FONT = "files/font.ttf"
@@ -15,32 +11,13 @@ TOKENS = 'tokens'
 ACCESS_TOKENS_DIC = {'CONSUMER_KEY': NA, 'CONSUMER_SECRET': NA, 'ACCESS_KEY': NA, 'ACCESS_SECRET': NA}
 
 
-def load_pickle(file):
-    f = open(file, 'rb')
-    listaObj = pickle.load(f)
-    f.close()
-    return listaObj
 
 
-def save_pickle(file, obj):
-    f = open(file, 'wb')
-    pickle.dump(obj, f)
-    f.close()
 
 
-def read_harpies(file):
-    lista = []
-    f = open(file, 'r', encoding='latin1')
-    line = f.readline()
-    while line:
-        lista.append(Arpio(line.strip()))
-        line = f.readline()
-    cantidad = len(lista)
-    for i in range(len(lista)):
-        lista[i].percKill = 1. / cantidad
 
-    lista.sort(key=lambda x: x.name)
-    return lista
+
+
 
 
 def print_status_harpies(lista):

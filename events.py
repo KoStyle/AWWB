@@ -1,4 +1,3 @@
-from classes import *
 from util import *
 from pip._internal.utils.deprecation import deprecated
 import random
@@ -14,13 +13,13 @@ class Assassination:
         self.victimPicker = victimPicker
         self.weapons = weapons
 
-    def bang(self, stats: Status):
+    def bang(self, stats):
         if stats.omedetoo:
             return "Se acabó pinche"
 
         tmpHarpies = get_survivors(self.harpies)
-        assasinpy: Arpio = self.killerPicker.pick(tmpHarpies)
-        victimpy: Arpio = self.victimPicker.pick(tmpHarpies)
+        assasinpy= self.killerPicker.pick(tmpHarpies)
+        victimpy = self.victimPicker.pick(tmpHarpies)
         tweet = ""
         if len(self.weapons) >= 1:
             motif = random.choice(self.weapons)
@@ -45,7 +44,7 @@ class Assassination:
     def get_frequency(self):
         return self.frequency
 
-    @deprecated(version='1.1', reason="Picking functions changed into property so they can be reused")
+    #Deprecated: Functionality migrated to a event model
     def choose_killer(self, tmpHarpies):
         threshold = random.random()
         random.shuffle(tmpHarpies)
@@ -113,7 +112,7 @@ class Suicide:
         self.harpies = harpies
         self.killerPicker = killerPiker
 
-    def bang(self, stats: Status):
+    def bang(self, stats):
         if stats.omedetoo:
             return "Se acabó pinche"
 
@@ -146,7 +145,7 @@ class Revive:
         self.shamanPiker = shamanPicker
         self.corpsePicker = corpsePicker
 
-    def bang(self, stats: Status):
+    def bang(self, stats):
         # TODO create flavour text for revives
 
         if stats.omedetoo:
@@ -155,8 +154,8 @@ class Revive:
         tmpHarpies = get_survivors(self.harpies)
         deadHarpies = get_corpses(self.harpies)
 
-        shamanpy: Arpio = self.shamanPiker.pick(tmpHarpies)
-        corpsepy: Arpio = self.corpsePicker.pick(deadHarpies)
+        shamanpy = self.shamanPiker.pick(tmpHarpies)
+        corpsepy = self.corpsePicker.pick(deadHarpies)
 
         # Resurrected gets half of the victim pecentaje of the shaman
 
@@ -194,11 +193,11 @@ class Curse:
 
         tmpHarpies = get_survivors(self.harpies)
 
-        shamanpy: Arpio = self.shamanPiker.pick(tmpHarpies)
-        acursedpy: Arpio = self.cursedPicker.pick(tmpHarpies)
+        shamanpy = self.shamanPiker.pick(tmpHarpies)
+        acursedpy = self.cursedPicker.pick(tmpHarpies)
 
         shamanpy.percKill += acursedpy.percKill / 2.
-        acursedpy = acursedpy.percKill / 2.
+        acursedpy.percKill = acursedpy.percKill / 2.
         acursedpy.percVictim = acursedpy.percVictim * 2
 
         # TODO Create flavour text for curses
