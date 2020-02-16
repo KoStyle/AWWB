@@ -17,8 +17,8 @@ class Assasination:
 
     def bang(self):
         tmpHarpies = get_survivors(self.harpies)
-        assasinpy = self.killerPicker.pick(tmpHarpies)
-        victimpy = self.victimPicker.pick(tmpHarpies)
+        assasinpy: Arpio = self.killerPicker.pick(tmpHarpies)
+        victimpy: Arpio = self.victimPicker.pick(tmpHarpies)
         tweet = ""
         if len(self.weapons) >= 1:
             motif = random.choice(self.weapons)
@@ -27,11 +27,11 @@ class Assasination:
             motif = 'una navajita random'
 
         # TODO: Implement random help
-        # TODO: Redistribute victim percentage (maybe give it to the killer, if he doesn't kill he is more likely to be killed???)
-
+        # TEST how good does the victim perc distribution
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
         assasinpy.percKill += victimpy.percKill
+        assasinpy.percVictim += victimpy.percVictim / 2.
         assasinpy.kills += 1
 
         return tweet
@@ -130,7 +130,28 @@ class Revive:
         # Resurrected gets half of the victim pecentaje of the shaman
         # Fixme: Somethin something think how to fix total amount of percKill. An Alfakiller is still an alfa-killer?, or is it reset based on the amount of alive harpies?, or total harpies? Oh mighty Satan tell me how to implement it
         corpsepy.isAlive = True
-        corpsepy.percVictim += shamanpy.percVictim / 2
-        shamanpy.percVictim = shamanpy.percVictim / 2
+        corpsepy.percVictim += shamanpy.percVictim / 2.
+        shamanpy.percVictim = shamanpy.percVictim / 2.
 
-        return shamanpy.name + " ha revivido a " + corpsepy.name +". Alabado sea Gilgamesh."
+        return shamanpy.name + " ha revivido a " + corpsepy.name + ". Alabado sea Gilgamesh."
+
+
+class Curse:
+    def __init__(self, frequency, harpies, shamanPicker, cursedPicker):
+        self.frequency = frequency
+        self.harpies = harpies
+        self.shamanPiker = shamanPicker
+        self.cursedPicker = cursedPicker
+
+    def bang(self):
+        tmpHarpies = get_survivors(self.harpies)
+
+        shamanpy: Arpio = self.shamanPiker.pick(tmpHarpies)
+        acursedpy: Arpio = self.cursedPicker.pick(tmpHarpies)
+
+        shamanpy.percKill += acursedpy.percKill / 2.
+        acursedpy = acursedpy.percKill / 2.
+        acursedpy.percKill = acursedpy.percVictim * 2
+
+        #TODO Create flavour text for curses
+        return shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + ". Se ha convertido en un imán para el peligro"
