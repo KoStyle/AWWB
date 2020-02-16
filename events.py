@@ -5,11 +5,9 @@ from pip._internal.utils.deprecation import deprecated
 from util import *
 
 
-# TODO: Externalise all choice methods to choice policies so they can be reused (suicide will have a choose_killer to use that stat. Maybe class with the static methods
-# Possible policies based on the stat used. Killer policy, helper policy, victim policy
 class Assasination:
-    def __init__(self, frecuency, harpies, weapons, killerPicker, victimPicker):
-        self.frecuency = frecuency
+    def __init__(self, frequency, harpies, weapons, killerPicker, victimPicker):
+        self.frecuency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.harpies = harpies
@@ -21,14 +19,16 @@ class Assasination:
         tmpHarpies = get_survivors(self.harpies)
         assasinpy = self.killerPicker.pick(tmpHarpies)
         victimpy = self.victimPicker.pick(tmpHarpies)
+        tweet = ""
         if len(self.weapons) >= 1:
             motif = random.choice(self.weapons)
             self.weapons.remove(motif)
         else:
             motif = 'una navajita random'
 
-        #TODO: Implement random help
-        tweet = assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
+        # TODO: Implement random help
+
+        tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
         assasinpy.percKill += victimpy.percKill
         assasinpy.kills += 1
@@ -52,8 +52,8 @@ class Assasination:
 
 
 class Coffee:
-    def __init__(self, frecuency, harpies, picker):
-        self.frecuency = frecuency
+    def __init__(self, frequency, harpies, picker):
+        self.frecuency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.harpies = harpies
@@ -64,7 +64,7 @@ class Coffee:
 
         tmpHarpies = get_survivors(self.harpies)
         drinkers = self.choose_drinkers(tmpHarpies)
-        tweet = "Coffee tweet"
+        tweet = ""
 
         for i in range(0, len(drinkers)):
             if i == len(drinkers) - 1:
@@ -89,3 +89,23 @@ class Coffee:
             drinkers.append(auxHarpy)
 
         return drinkers
+
+
+class Suicide:
+    def __init__(self, frequency, harpies, killerPiker):
+        self.frequency = frequency
+        self.harpies = harpies
+        self.killerPicker = killerPiker
+
+    def bang(self):
+        tmpHarpies = get_survivors(self.harpies)
+        suicidalpy = self.killerPicker.pick(tmpHarpies)
+        suicidalpy.isAlive = False
+
+        # TODO: Think of a different form to do this. It might lose kill percentage (a small amount) if the division gives irrational numbers
+        share = suicidalpy.percKill / float(len(tmpHarpies))
+        for harpy in tmpHarpies:
+            harpy.percKill += share
+
+        tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
+        return tweet
