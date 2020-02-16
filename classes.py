@@ -1,9 +1,17 @@
 import os
 import pickle
-import events
-import pickers
 import random
 from util import *
+from events import Assassination
+from events import Coffee
+from events import Revive
+from events import Curse
+from events import Suicide
+
+from pickers import KillerPicker
+from pickers import RandomPicker
+from pickers import RandomPickerNoDelete
+from pickers import VictimPicker
 
 
 class Arpio:
@@ -43,11 +51,11 @@ class Colosseum:
             self.stats.alive = len(get_survivors(self.harpies))
 
         self.events = []
-        self.events.append(events.Assassination(90, self.harpies, self.weapons, pickers.KillerPicker(), pickers.VictimPicker()))
-        self.events.append(events.Coffee(2.5, self.harpies, pickers.RandomPicker()))
-        self.events.append(events.Suicide(2.5, self.harpies, pickers.KillerPicker()))
-        self.events.append(events.Revive(2.5, self.harpies, pickers.RandomPickerNoDelete(), pickers.RandomPickerNoDelete()))
-        self.events.append(events.Curse(2.5, self.harpies, pickers.RandomPicker(), pickers.RandomPicker()))
+        self.events.append(Assassination(90, self.harpies, self.weapons, KillerPicker(), VictimPicker()))
+        self.events.append(Coffee(2.5, self.harpies, RandomPicker()))
+        self.events.append(Suicide(2.5, self.harpies, KillerPicker()))
+        self.events.append(Revive(2.5, self.harpies, RandomPickerNoDelete(), RandomPickerNoDelete()))
+        self.events.append(Curse(2.5, self.harpies, RandomPicker(), RandomPicker()))
 
     def i_command_you_to_pick_the_event(self):
         threshold = random.random()
@@ -59,7 +67,6 @@ class Colosseum:
         while pot < threshold:
             i += 1
             pot += self.events[i].get_frequency() / 100.
-
 
         return self.events[i]
 
@@ -73,7 +80,18 @@ class Colosseum:
             event = self.i_command_you_to_pick_the_event()
             tweet = event.bang(self.stats)
             print(tweet)
+            #self.print_percs()
             return True
+
+    def print_percs(self):
+        survivors = get_survivors(self.harpies)
+        potVict = 0
+        potKill = 0
+        for harpy in survivors:
+            potVict += harpy.percVictim
+            potKill += harpy.percKill
+
+        print("Kill: " + str(potKill) + " Vict: " + str(potVict))
 
     @staticmethod
     def read_harpies(file):
@@ -86,6 +104,7 @@ class Colosseum:
         cantidad = len(lista)
         for i in range(len(lista)):
             lista[i].percKill = 1. / cantidad
+            lista[i].percVictim = 1. / cantidad
 
         lista.sort(key=lambda x: x.name)
         return lista

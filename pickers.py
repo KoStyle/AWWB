@@ -1,7 +1,7 @@
 import random
 
 
-
+#TODO change pickers so they all work with withdrawl, NO exceptions
 class KillerPicker:
 
     def pick(self, harpies):
@@ -25,12 +25,14 @@ class VictimPicker:
     def pick(self, harpies):
         threshold = random.random()
         random.shuffle(harpies)
+        remainingPercVictim=sum(c.percVictim for c in harpies)
+        threshold= threshold*remainingPercVictim
 
         pot = harpies[0].percVictim
         i = 0
         while pot < threshold:
             i += 1
-            pot = pot + harpies[i].percVictim
+            pot += harpies[i].percVictim
 
 
         victim = harpies[i]

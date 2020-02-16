@@ -18,7 +18,7 @@ class Assassination:
             return "Se acabó pinche"
 
         tmpHarpies = get_survivors(self.harpies)
-        assasinpy= self.killerPicker.pick(tmpHarpies)
+        assasinpy = self.killerPicker.pick(tmpHarpies)
         victimpy = self.victimPicker.pick(tmpHarpies)
         tweet = ""
         if len(self.weapons) >= 1:
@@ -27,12 +27,18 @@ class Assassination:
         else:
             motif = 'una navajita random'
 
-        # TEST how good does the victim perc distribution
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
         assasinpy.percKill += victimpy.percKill
-        assasinpy.percVictim += victimpy.percVictim / 2.
         assasinpy.kills += 1
+
+        # FIXME this is repeated code, think of a way to reuse this kind of redistributions. Also it is a bit hacky
+
+        tmpHarpies.append(assasinpy)
+        shareVict = victimpy.percVictim / float(len(tmpHarpies))
+        tmpHarpies.remove(assasinpy)
+        for harpy in tmpHarpies:
+            harpy.percVictim += shareVict
 
         stats.kills += 1
         stats.alive -= 1
@@ -44,7 +50,7 @@ class Assassination:
     def get_frequency(self):
         return self.frequency
 
-    #Deprecated: Functionality migrated to a event model
+    # Deprecated: Functionality migrated to a event model
     def choose_killer(self, tmpHarpies):
         threshold = random.random()
         random.shuffle(tmpHarpies)
@@ -95,7 +101,8 @@ class Coffee:
 
     def choose_drinkers(self, tmpHarpies):
         drinkers = []
-        nDrinkers = random.randint(2, 5)
+        maxDrinkers= min(len(tmpHarpies), 5)
+        nDrinkers = random.randint(2, maxDrinkers)
 
         random.shuffle(tmpHarpies)
 
@@ -121,9 +128,11 @@ class Suicide:
         suicidalpy.isAlive = False
 
         # TODO: Think of a different form to do this. It might lose kill percentage (a small amount) if the division gives irrational numbers
-        share = suicidalpy.percKill / float(len(tmpHarpies))
+        shareKill = suicidalpy.percKill / float(len(tmpHarpies))
+        shareVict = suicidalpy.percVictim / float(len(tmpHarpies))
         for harpy in tmpHarpies:
-            harpy.percKill += share
+            harpy.percKill += shareKill
+            harpy.percVictim += shareVict
 
         stats.kills += 1
         stats.alive -= 1
@@ -159,21 +168,25 @@ class Revive:
 
         # Resurrected gets half of the victim pecentaje of the shaman
 
+        self.redistribute_percentages(corpsepy, tmpHarpies)
         corpsepy.isAlive = True
         corpsepy.percVictim += shamanpy.percVictim / 2.
         shamanpy.percVictim = shamanpy.percVictim / 2.
-        self.redistribute_kill_percentage(corpsepy, tmpHarpies)
 
         stats.alive += 1
 
         return shamanpy.name + " ha revivido a " + corpsepy.name + ". Alabado sea Gilgamesh."
 
-    def redistribute_kill_percentage(self, corpsepy, survivors):
+    def redistribute_percentages(self, corpsepy, survivors):
         corpsepy.percKill = 1. / (len(survivors) + 1)
         killDecrement = corpsepy.percKill / float(len(survivors))
 
+        corpsepy.percVictim = 1. / (len(survivors) + 1)
+        victDecrement = corpsepy.percVictim / float(len(survivors))
+
         for auxpy in survivors:
             auxpy.percKill -= killDecrement
+            auxpy.percVictim -= victDecrement
 
     def get_frequency(self):
         return self.frequency
@@ -187,8 +200,7 @@ class Curse:
         self.cursedPicker = cursedPicker
 
     def bang(self, stats):
-
-        if stats.omedetoo:
+        if stats.omedetoo or stats.alive<2:
             return "Se acabó pinche"
 
         tmpHarpies = get_survivors(self.harpies)
