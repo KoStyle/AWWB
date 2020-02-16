@@ -112,6 +112,7 @@ class Suicide:
         return tweet
 
 
+# Both pickers come without withdrawing from the list
 class Revive:
     def __init__(self, frequency, harpies, shamanPicker, corpsePicker):
         self.frequency = frequency
@@ -128,13 +129,19 @@ class Revive:
         corpsepy: Arpio = self.corpsePicker.pick(deadHarpies)
 
         # Resurrected gets half of the victim pecentaje of the shaman
-        # Fixme: Somethin something think how to fix total amount of percKill. An Alfakiller is still an alfa-killer?, or is it reset based on the amount of alive harpies?, or total harpies? Oh mighty Satan tell me how to implement it
-        # Fixme: I know! calculate the proportion based on the survivors, and then substract a part of that percKill form all of the. perckill= 1/survivors. And then adjust the survivors with perckill-= 1/(survivors*2)
+
         corpsepy.isAlive = True
         corpsepy.percVictim += shamanpy.percVictim / 2.
         shamanpy.percVictim = shamanpy.percVictim / 2.
-
+        self.redistribute_kill_percentage(corpsepy, tmpHarpies)
         return shamanpy.name + " ha revivido a " + corpsepy.name + ". Alabado sea Gilgamesh."
+
+    def redistribute_kill_percentage(self, corpsepy, survivors):
+        corpsepy.percKill = 1. / (len(survivors) + 1)
+        killDecrement = corpsepy.percKill / float(len(survivors))
+
+        for auxpy in survivors:
+            auxpy.percKill -= killDecrement
 
 
 class Curse:
@@ -152,7 +159,7 @@ class Curse:
 
         shamanpy.percKill += acursedpy.percKill / 2.
         acursedpy = acursedpy.percKill / 2.
-        acursedpy.percKill = acursedpy.percVictim * 2
+        acursedpy.percVictim = acursedpy.percVictim * 2
 
-        #TODO Create flavour text for curses
+        # TODO Create flavour text for curses
         return shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + ". Se ha convertido en un imán para el peligro"

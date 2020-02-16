@@ -43,3 +43,10 @@ class RandomPicker:
         harpy = random.choice(harpies)
         harpies.remove(harpy)
         return harpy
+
+class RandomPickerNoDelete:
+
+    def pick(selfs, harpies):
+        random.shuffle(harpies)
+        harpy = random.choice(harpies)
+        return harpy
