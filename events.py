@@ -1,6 +1,7 @@
 import random
 
-
+# TODO Events need a reference to InputKun
+# TODO Make each event get its own flavour list using InputKun (colosseum doesn't need to know about them as they only make sense in their respective event)
 class Assassination:
     def __init__(self, frequency, col, weapons, killerPicker, victimPicker):
         self.frequency = frequency
@@ -114,7 +115,6 @@ class Suicide:
         suicidalpy = self.killerPicker.pick(surviors)
         suicidalpy.isAlive = False
 
-        # TODO: Think of a different form to do this. It might lose kill percentage (a small amount) if the division gives irrational numbers
         shareKill = suicidalpy.percKill / float(len(surviors))
         shareVict = suicidalpy.percVictim / float(len(surviors))
         for harpy in surviors:
@@ -147,11 +147,11 @@ class Revive:
             return "Se acabó pinche"
 
         surviors = self.colosseum.get_survivors()
-        deadHarpies = self.colosseum.get_corpses()
+        corpses = self.colosseum.get_corpses()
 
-        # TODO Standarize this pickers
+        # TODO Standarize this pickers (all of then without replacement)
         shamanpy = self.shamanPiker.pick(surviors)
-        corpsepy = self.corpsePicker.pick(deadHarpies)
+        corpsepy = self.corpsePicker.pick(corpses)
 
         # Resurrected gets half of the victim pecentaje of the shaman
         # FIXME how much killPerc the corpse gets: minimum, average, the same that the shaman (i think this one is best)

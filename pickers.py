@@ -1,7 +1,6 @@
 import random
 
 
-# TODO change pickers so they all work with withdrawl, NO exceptions
 class KillerPicker:
 
     def pick(self, harpies):
