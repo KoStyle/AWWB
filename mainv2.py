@@ -7,7 +7,6 @@ from pip._internal.utils.deprecation import deprecated
 
 import util
 from classes import Colosseum
-from util import read_file
 import twython
 import datetime
 from PIL import Image
@@ -28,7 +27,7 @@ from shutil import copyfile
 # Revives (Done)
 # Curses (Done)
 
-# Event randomization (in progress)
+# Event randomization (Done)
 
 # EasterEggs for certain combinations
 # Neutral Manu
@@ -58,8 +57,9 @@ def generateStatusImage(lista):
 
 
 ##script
-
+random.seed(datetime.datetime.now().second)
 colosseum = Colosseum()
+i = 1
 while not colosseum.is_over():
-    colosseum.let_the_games_begin()
-
+    print("Ronda " + str(i) + ": " + colosseum.let_the_games_begin())
+    i += 1

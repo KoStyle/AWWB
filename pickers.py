@@ -7,6 +7,8 @@ class KillerPicker:
     def pick(self, harpies):
         threshold = random.random()
         random.shuffle(harpies)
+        remainingPercKiller = sum(c.percKill for c in harpies)
+        threshold = threshold * remainingPercKiller
 
         pot = harpies[0].percKill
         i = 0

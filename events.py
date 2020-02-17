@@ -1,6 +1,5 @@
-from util import *
-from pip._internal.utils.deprecation import deprecated
 import random
+from util import *
 
 
 # TODO try to refactor the bangs to streamline then. Find all the redundant code and do somethin like with the pickers
@@ -18,9 +17,9 @@ class Assassination:
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
-        assasinpy = self.killerPicker.pick(tmpHarpies)
-        victimpy = self.victimPicker.pick(tmpHarpies)
+        surviors = get_survivors(self.harpies)
+        victimpy = self.victimPicker.pick(surviors)
+        assasinpy = self.killerPicker.pick(surviors)
         tweet = ""
         if len(self.weapons) >= 1:
             motif = random.choice(self.weapons)
@@ -35,15 +34,15 @@ class Assassination:
 
         # FIXME this is repeated code, think of a way to reuse this kind of redistributions. Also it is a bit hacky
 
-        tmpHarpies.append(assasinpy)
-        shareVict = victimpy.percVictim / float(len(tmpHarpies))
-        tmpHarpies.remove(assasinpy)
-        for harpy in tmpHarpies:
+        surviors.append(assasinpy)
+        shareVict = victimpy.percVictim / float(len(surviors))
+        surviors.remove(assasinpy)
+        for harpy in surviors:
             harpy.percVictim += shareVict
 
         stats.kills += 1
         stats.alive -= 1
-        if len(tmpHarpies) == 0:  # should be empty after the last standoff
+        if len(surviors) == 0:  # should be empty after the last standoff
             stats.omedetoo = True
             stats.winner = assasinpy
         return tweet
@@ -53,21 +52,20 @@ class Assassination:
 
 
 class Coffee:
-    def __init__(self, frequency, harpies, picker):
+    def __init__(self, frequency, harpies, coffees, picker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.harpies = harpies
         self.picker = picker
+        self.coffees = coffees
 
     def bang(self, stats):
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        coffees = read_file(CAFE)
-
-        tmpHarpies = get_survivors(self.harpies)
-        drinkers = self.choose_drinkers(tmpHarpies)
+        surviors = get_survivors(self.harpies)
+        drinkers = self.choose_drinkers(surviors)
         tweet = ""
 
         for i in range(0, len(drinkers)):
@@ -78,22 +76,22 @@ class Coffee:
             else:
                 tweet += drinkers[i].name + ", "
 
-        tweet += "se han %s. La vida sigue." % random.choice(coffees)
+        tweet += "se han %s. La vida sigue." % random.choice(self.coffees)
 
         return tweet
 
     def get_frequency(self):
         return self.frequency
 
-    def choose_drinkers(self, tmpHarpies):
+    def choose_drinkers(self, surviors):
         drinkers = []
-        maxDrinkers = min(len(tmpHarpies), 5)
+        maxDrinkers = min(len(surviors), 5)
         nDrinkers = random.randint(2, maxDrinkers)
 
-        random.shuffle(tmpHarpies)
+        random.shuffle(surviors)
 
         for i in range(0, nDrinkers):
-            auxHarpy = self.picker.pick(tmpHarpies)
+            auxHarpy = self.picker.pick(surviors)
             drinkers.append(auxHarpy)
 
         return drinkers
@@ -109,22 +107,22 @@ class Suicide:
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
-        suicidalpy = self.killerPicker.pick(tmpHarpies)
+        surviors = get_survivors(self.harpies)
+        suicidalpy = self.killerPicker.pick(surviors)
         suicidalpy.isAlive = False
 
         # TODO: Think of a different form to do this. It might lose kill percentage (a small amount) if the division gives irrational numbers
-        shareKill = suicidalpy.percKill / float(len(tmpHarpies))
-        shareVict = suicidalpy.percVictim / float(len(tmpHarpies))
-        for harpy in tmpHarpies:
+        shareKill = suicidalpy.percKill / float(len(surviors))
+        shareVict = suicidalpy.percVictim / float(len(surviors))
+        for harpy in surviors:
             harpy.percKill += shareKill
             harpy.percVictim += shareVict
 
         stats.kills += 1
         stats.alive -= 1
-        if len(tmpHarpies) == 1:  # should be only one harpy left after the last suicide
+        if len(surviors) == 1:  # should be only one harpy left after the last suicide
             stats.omedetoo = True
-            stats.winner = tmpHarpies[0]
+            stats.winner = surviors[0]
         tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
         return tweet
 
@@ -146,15 +144,15 @@ class Revive:
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
+        surviors = get_survivors(self.harpies)
         deadHarpies = get_corpses(self.harpies)
 
-        shamanpy = self.shamanPiker.pick(tmpHarpies)
+        shamanpy = self.shamanPiker.pick(surviors)
         corpsepy = self.corpsePicker.pick(deadHarpies)
 
         # Resurrected gets half of the victim pecentaje of the shaman
 
-        self.redistribute_percentages(corpsepy, tmpHarpies)
+        self.redistribute_percentages(corpsepy, surviors)
         corpsepy.isAlive = True
         corpsepy.percVictim += shamanpy.percVictim / 2.
         shamanpy.percVictim = shamanpy.percVictim / 2.
@@ -189,10 +187,10 @@ class Curse:
         if stats.omedetoo or stats.alive < 2:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
+        surviors = get_survivors(self.harpies)
 
-        shamanpy = self.shamanPiker.pick(tmpHarpies)
-        acursedpy = self.cursedPicker.pick(tmpHarpies)
+        shamanpy = self.shamanPiker.pick(surviors)
+        acursedpy = self.cursedPicker.pick(surviors)
 
         shamanpy.percKill += acursedpy.percKill / 2.
         acursedpy.percKill = acursedpy.percKill / 2.
