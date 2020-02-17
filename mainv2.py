@@ -1,19 +1,14 @@
-import pickle
-import os
-import random
+import datetime
 import math
+import random
 
-from pip._internal.utils.deprecation import deprecated
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 
 import util
-from classes import Colosseum
-import twython
-import datetime
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
-from twython import Twython
-from shutil import copyfile
+
+from colosseum import Colosseum
 
 
 # TODO ideas:
@@ -26,14 +21,10 @@ from shutil import copyfile
 # Missed hits/defense teamups
 # Revives (Done)
 # Curses (Done)
-
 # Event randomization (Done)
-
 # EasterEggs for certain combinations
 # Neutral Manu
-
 # Support for mentions
-
 
 def generateStatusImage(lista):
     pic = Image.open(util.IMG + util.PNG)

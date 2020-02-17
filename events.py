@@ -1,23 +1,22 @@
 import random
-from util import *
 
 
-# TODO try to refactor the bangs to streamline then. Find all the redundant code and do somethin like with the pickers
 class Assassination:
-    def __init__(self, frequency, harpies, weapons, killerPicker, victimPicker):
+    def __init__(self, frequency, col, weapons, killerPicker, victimPicker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
-        self.harpies = harpies
+        self.colosseum = col
         self.killerPicker = killerPicker
         self.victimPicker = victimPicker
         self.weapons = weapons
 
-    def bang(self, stats):
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        surviors = get_survivors(self.harpies)
+        surviors = self.colosseum.get_survivors()
         victimpy = self.victimPicker.pick(surviors)
         assasinpy = self.killerPicker.pick(surviors)
         tweet = ""
@@ -30,6 +29,8 @@ class Assassination:
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
         assasinpy.percKill += victimpy.percKill
+        assasinpy.percVictim += victimpy.percVictim / 3.
+        victimpy.percVictim = 2 * (victimpy.percVictim / 3.)
         assasinpy.kills += 1
 
         # FIXME this is repeated code, think of a way to reuse this kind of redistributions. Also it is a bit hacky
@@ -45,26 +46,27 @@ class Assassination:
         if len(surviors) == 0:  # should be empty after the last standoff
             stats.omedetoo = True
             stats.winner = assasinpy
-        return tweet
+        return "{:1.4f}".format(assasinpy.percKill) + " : " + "{:1.4f}".format(assasinpy.percVictim) + " " + tweet
 
     def get_frequency(self):
         return self.frequency
 
 
 class Coffee:
-    def __init__(self, frequency, harpies, coffees, picker):
+    def __init__(self, frequency, col, coffees, picker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
-        self.harpies = harpies
+        self.colosseum = col
         self.picker = picker
         self.coffees = coffees
 
-    def bang(self, stats):
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        surviors = get_survivors(self.harpies)
+        surviors = self.colosseum.get_survivors()
         drinkers = self.choose_drinkers(surviors)
         tweet = ""
 
@@ -98,16 +100,17 @@ class Coffee:
 
 
 class Suicide:
-    def __init__(self, frequency, harpies, killerPiker):
+    def __init__(self, frequency, col, killerPiker):
         self.frequency = frequency
-        self.harpies = harpies
+        self.colosseum = col
         self.killerPicker = killerPiker
 
-    def bang(self, stats):
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        surviors = get_survivors(self.harpies)
+        surviors = self.colosseum.get_survivors()
         suicidalpy = self.killerPicker.pick(surviors)
         suicidalpy.isAlive = False
 
@@ -130,28 +133,29 @@ class Suicide:
         return self.frequency
 
 
-# Both pickers come without withdrawing from the list
 class Revive:
-    def __init__(self, frequency, harpies, shamanPicker, corpsePicker):
+    def __init__(self, frequency, col, shamanPicker, corpsePicker):
         self.frequency = frequency
-        self.harpies = harpies
+        self.colosseum = col
         self.shamanPiker = shamanPicker
         self.corpsePicker = corpsePicker
 
-    def bang(self, stats):
+    def bang(self):
         # TODO create flavour text for revives
-
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        surviors = get_survivors(self.harpies)
-        deadHarpies = get_corpses(self.harpies)
+        surviors = self.colosseum.get_survivors()
+        deadHarpies = self.colosseum.get_corpses()
 
+        # TODO Standarize this pickers
         shamanpy = self.shamanPiker.pick(surviors)
         corpsepy = self.corpsePicker.pick(deadHarpies)
 
         # Resurrected gets half of the victim pecentaje of the shaman
-
+        # FIXME how much killPerc the corpse gets: minimum, average, the same that the shaman (i think this one is best)
+        # FIXME creates negative percKill in redistribute!!! Redistribute percentages instead of a fixed amount across the board
         self.redistribute_percentages(corpsepy, surviors)
         corpsepy.isAlive = True
         corpsepy.percVictim += shamanpy.percVictim / 2.
@@ -177,17 +181,18 @@ class Revive:
 
 
 class Curse:
-    def __init__(self, frequency, harpies, shamanPicker, cursedPicker):
+    def __init__(self, frequency, col, shamanPicker, cursedPicker):
         self.frequency = frequency
-        self.harpies = harpies
+        self.colosseum = col
         self.shamanPiker = shamanPicker
         self.cursedPicker = cursedPicker
 
-    def bang(self, stats):
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo or stats.alive < 2:
             return "Se acabó pinche"
 
-        surviors = get_survivors(self.harpies)
+        surviors = self.colosseum.get_survivors()
 
         shamanpy = self.shamanPiker.pick(surviors)
         acursedpy = self.cursedPicker.pick(surviors)
