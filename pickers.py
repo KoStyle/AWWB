@@ -1,19 +1,19 @@
 import random
 
 
-
 class KillerPicker:
 
     def pick(self, harpies):
         threshold = random.random()
         random.shuffle(harpies)
+        remainingPercKiller = sum(c.percKill for c in harpies)
+        threshold = threshold * remainingPercKiller
 
         pot = harpies[0].percKill
         i = 0
         while pot < threshold:
             i += 1
             pot = pot + harpies[i].percKill
-
 
         killer = harpies[i]
         del harpies[i]
@@ -25,13 +25,14 @@ class VictimPicker:
     def pick(self, harpies):
         threshold = random.random()
         random.shuffle(harpies)
+        remainingPercVictim = sum(c.percVictim for c in harpies)
+        threshold = threshold * remainingPercVictim
 
         pot = harpies[0].percVictim
         i = 0
         while pot < threshold:
             i += 1
-            pot = pot + harpies[i].percVictim
-
+            pot += harpies[i].percVictim
 
         victim = harpies[i]
         del harpies[i]
@@ -46,6 +47,9 @@ class RandomPicker:
         harpies.remove(harpy)
         return harpy
 
+
+
+#Deprecated: All pickers MUST remove the picked element from the original list
 class RandomPickerNoDelete:
 
     def pick(selfs, harpies):

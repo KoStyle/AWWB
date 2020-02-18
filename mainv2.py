@@ -1,20 +1,14 @@
-import pickle
-import os
-import random
+import datetime
 import math
+import random
 
-from pip._internal.utils.deprecation import deprecated
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 
 import util
-from classes import Colosseum
-from util import read_file
-import twython
-import datetime
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
-from twython import Twython
-from shutil import copyfile
+
+from colosseum import Colosseum
 
 
 # TODO ideas:
@@ -27,54 +21,10 @@ from shutil import copyfile
 # Missed hits/defense teamups
 # Revives (Done)
 # Curses (Done)
-
-# Event randomization (in progress)
-
+# Event randomization (Done)
 # EasterEggs for certain combinations
 # Neutral Manu
-
 # Support for mentions
-
-#
-# @deprecated(version='1.0', reason="This method is obsolete thanks to the new [colisseum + events] structure")
-# def randomKill(lista, objetos):
-#     listatmp = []
-#     cafes = read_file(util.CAFE)
-#     tweet = ''
-#     for index in range(len(lista)):
-#         if lista[index].isAlive:
-#             listatmp.append(lista[index])
-#
-#     if len(listatmp) > 1:
-#         tmpio = choose_killer(listatmp)
-#         muerpio = random.choice(listatmp)
-#         if random.random() < 0.05:  # suicidio 5%
-#             print(tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet')
-#             tweet = tmpio.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
-#             muerpio.percKill = tmpio.percKill + muerpio.percKill
-#             tmpio.isAlive = False
-#         else:
-#             if random.random() < 0.025:  # café 2.5%
-#                 print(tmpio.name + ' se ha %s con ' % random.choice(cafes) + muerpio.name + '. La vida sigue.')
-#                 tweet = tmpio.name + ' se ha %s con ' % random.choice(cafes) + muerpio.name + '. La vida sigue.'
-#             else:
-#                 if len(objetos) >= 1:
-#                     objeto = random.choice(objetos)
-#                     objetos.remove(objeto)
-#                 else:
-#                     objeto = 'con la "Vara de la aleatoreidad"!'
-#                 print(tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto)
-#                 tweet = tmpio.name + ' ha matado a ' + muerpio.name + ' %s.' % objeto
-#                 muerpio.isAlive = False
-#                 tmpio.percKill = tmpio.percKill + muerpio.percKill
-#                 tmpio.kills = tmpio.kills + 1
-#         return tweet
-#     else:
-#         # Deprecated
-#         print('Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda')
-#         tweet = 'Enhorabuena a ' + listatmp[0].name + '! Lo celebraremos en parranda'
-#         return tweet
-
 
 def generateStatusImage(lista):
     pic = Image.open(util.IMG + util.PNG)
@@ -98,92 +48,9 @@ def generateStatusImage(lista):
 
 
 ##script
-
+random.seed(datetime.datetime.now().second)
 colosseum = Colosseum()
+i = 1
 while not colosseum.is_over():
-    colosseum.let_the_games_begin()
-
-# #TODO I don't remember why was I testing inheritance.... something something participant class?
-# class Matrioshka:
-#     def bang(self):
-#         print("All of this over-")
-#
-#
-# class Baba(Matrioshka):
-#     def bang(self):
-#         print("-a car and-")
-#
-#
-# class Yaga(Matrioshka):
-#     def bang(self):
-#         print("-a fucking puppy")
-#
-#
-# a = Matrioshka()
-# b = Baba()
-# c = Yaga()
-#
-# lista = []
-# lista.append(a)
-# lista.append(b)
-# lista.append(c)
-#
-# for i in range(len(lista)):
-#     lista[i].bang()
-
-# if os.path.isfile(_ARPIOS + _TXT):
-#     lista = loadPickle(_ARPIOS + _TXT)
-# else:
-#     lista = leerArpios('arpios.txt')
-#
-# if os.path.isfile(_OBJETOS + _TXT):
-#     listaObj = loadPickle(_OBJETOS + _TXT)
-# else:
-#     listaObj = abrirLista('objetos.txt')
-#
-# if os.path.isfile(_STATUS + _TXT):
-#     stats = loadPickle(_STATUS + _TXT)
-# else:
-#     stats = Status()
-#     stats.alive = len(listaVivos(lista))
-#
-# tweet = ''
-# if not stats.omedetoo:
-#     tweet = randomKill(lista, listaObj)
-#     # printStatusArpios(lista)
-#     generaImagenStatus(lista)
-#
-#     api = Twython(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_KEY, ACCESS_SECRET)
-#     photo = open(imagen, 'rb')
-#     image_ids = api.upload_media(media=photo)
-#     api.update_status(status=tweet, media_ids=image_ids['media_id'])
-#
-#     vivos = listaVivos(lista)
-#     stats.alive = len(vivos)
-#     stats.winner = vivos[0]
-#
-#     print(stats.alive)
-#
-#     savePickle(_ARPIOS + _TXT, lista)
-#     savePickle(_OBJETOS + _TXT, listaObj)
-#     savePickle(_STATUS + _TXT, stats)
-#
-#     # log
-#     now = datetime.datetime.now()
-#     copyfile(_ARPIOS + _TXT, 'history/' + _ARPIOS + '_' + now.strftime('%Y%m%d%H%M') + _TXT)
-#     copyfile(_IMG + _PNG, 'history/' + _IMG + '_' + now.strftime('%Y%m%d%H%M') + _PNG)
-#     copyfile(_OBJETOS + _TXT, 'history/' + _OBJETOS + '_' + now.strftime('%Y%m%d%H%M') + _TXT)
-#     copyfile(_STATUS + _TXT, 'history/' + _STATUS + '_' + now.strftime('%Y%m%d%H%M') + _TXT)
-#
-# if stats.alive == 1 and not stats.omedetoo:
-#     print('Omedetoo')
-#     stats.omedetoo = True
-#     savePickle(_STATUS + _TXT, stats)
-#     print(
-#         '[Sonido de arranque de Windows XP] Finalmente sabemos quien es el último superviviente. Enhorabuena ' + stats.winner.name + '! Lo celebraremos en parranda! [ENTRANDO EN MODO HIBERNACIÓN]')
-#     tweet = '[Sonido de arranque de Windows XP] Finalmente sabemos quien es el último superviviente. Enhorabuena ' + stats.winner.name + '! Lo celebraremos en parranda! [ENTRANDO EN MODO HIBERNACIÓN]'
-#     api = Twython(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_KEY, ACCESS_SECRET)
-#     api.update_status(status=tweet)
-#
-# if stats.omedetoo:
-#     print('esto deberia ser lo unico - ' + str(stats.alive))
+    print("Ronda " + str(i) + ": " + colosseum.let_the_games_begin())
+    i += 1

@@ -1,81 +1,78 @@
-from util import *
-from pip._internal.utils.deprecation import deprecated
 import random
+
+from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE
+from io_sama import InputKun
 
 
 class Assassination:
-    def __init__(self, frequency, harpies, weapons, killerPicker, victimPicker):
+    flavour_file = WEAPONFILE
+
+    def __init__(self, frequency, col, killer_picker, victim_picker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
-        self.harpies = harpies
-        self.killerPicker = killerPicker
-        self.victimPicker = victimPicker
-        self.weapons = weapons
+        self.colosseum = col
+        self.killerPicker = killer_picker
+        self.victimPicker = victim_picker
+        self.weapons = InputKun.read_file(self.flavour_file)
 
-    def bang(self, stats):
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
-        assasinpy= self.killerPicker.pick(tmpHarpies)
-        victimpy = self.victimPicker.pick(tmpHarpies)
+        surviors = self.colosseum.get_survivors()
+        victimpy = self.victimPicker.pick(surviors)
+        assasinpy = self.killerPicker.pick(surviors)
         tweet = ""
         if len(self.weapons) >= 1:
             motif = random.choice(self.weapons)
             self.weapons.remove(motif)
         else:
-            motif = 'una navajita random'
+            motif = 'con la vara de la aleatoriedad'
 
-        # TEST how good does the victim perc distribution
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
-        assasinpy.percKill += victimpy.percKill
-        assasinpy.percVictim += victimpy.percVictim / 2.
-        assasinpy.kills += 1
 
+        # Transfer of stats
+        assasinpy.percKill += victimpy.percKill
+        assasinpy.percVictim += victimpy.percVictim / 3.
+        victimpy.percVictim = 2 * (victimpy.percVictim / 3.)
+
+        surviors.append(assasinpy)  # We put it back in survivors so he can receive more victimness
+        self.colosseum.share_attribute("percVictim", victimpy.percVictim, surviors)
+
+        # Recording of statistics
+        assasinpy.kills += 1
         stats.kills += 1
         stats.alive -= 1
-        if len(tmpHarpies) == 0:  # should be empty after the last standoff
+        if len(surviors) == 1:  # should be empty after the last standoff
             stats.omedetoo = True
             stats.winner = assasinpy
-        return tweet
+        return "{:1.4f}".format(assasinpy.percKill) + " : " + "{:1.4f}".format(assasinpy.percVictim) + " " + tweet
 
     def get_frequency(self):
         return self.frequency
 
-    #Deprecated: Functionality migrated to a event model
-    def choose_killer(self, tmpHarpies):
-        threshold = random.random()
-        random.shuffle(tmpHarpies)
-
-        pot = tmpHarpies[0].percKill
-        i = 0
-        while pot < threshold:
-            pot = pot + tmpHarpies[i].percKill
-            i += 1
-
-        killer = tmpHarpies[i]
-        del tmpHarpies[i]
-        return killer
-
 
 class Coffee:
-    def __init__(self, frequency, harpies, picker):
+    flavour_file = COFFEEFILE
+
+    def __init__(self, frequency, col, picker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
-        self.harpies = harpies
+        self.colosseum = col
         self.picker = picker
+        self.coffees = InputKun.read_file(self.flavour_file)
 
-    def bang(self, stats):
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        coffees = read_file(CAFE)
-
-        tmpHarpies = get_survivors(self.harpies)
-        drinkers = self.choose_drinkers(tmpHarpies)
+        surviors = self.colosseum.get_survivors()
+        drinkers = self.choose_drinkers(surviors)
         tweet = ""
 
         for i in range(0, len(drinkers)):
@@ -86,122 +83,147 @@ class Coffee:
             else:
                 tweet += drinkers[i].name + ", "
 
-        tweet += "se han %s. La vida sigue." % random.choice(coffees)
+        if len(self.coffees) < 1:
+            self.coffees.append("ido a tomar un [404: edible item missing]")
+
+        tweet += "se han %s. La vida sigue." % random.choice(self.coffees)
 
         return tweet
 
     def get_frequency(self):
         return self.frequency
 
-    def choose_drinkers(self, tmpHarpies):
+    def choose_drinkers(self, surviors):
         drinkers = []
-        nDrinkers = random.randint(2, 5)
+        max_drinkers = min(len(surviors), 5)
+        n_drinkers = random.randint(2, max_drinkers)
 
-        random.shuffle(tmpHarpies)
+        random.shuffle(surviors)
 
-        for i in range(0, nDrinkers):
-            auxHarpy = self.picker.pick(tmpHarpies)
-            drinkers.append(auxHarpy)
+        for i in range(0, n_drinkers):
+            aux_harpy = self.picker.pick(surviors)
+            drinkers.append(aux_harpy)
 
         return drinkers
 
 
 class Suicide:
-    def __init__(self, frequency, harpies, killerPiker):
-        self.frequency = frequency
-        self.harpies = harpies
-        self.killerPicker = killerPiker
+    flavour_file = SUICIDEFILE
 
-    def bang(self, stats):
+    def __init__(self, frequency, col, killer_picker):
+        self.frequency = frequency
+        self.colosseum = col
+        self.killerPicker = killer_picker
+        self.suicides = InputKun.read_file(self.flavour_file)
+
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
-        suicidalpy = self.killerPicker.pick(tmpHarpies)
+        surviors = self.colosseum.get_survivors()
+        suicidalpy = self.killerPicker.pick(surviors)
         suicidalpy.isAlive = False
 
-        # TODO: Think of a different form to do this. It might lose kill percentage (a small amount) if the division gives irrational numbers
-        share = suicidalpy.percKill / float(len(tmpHarpies))
-        for harpy in tmpHarpies:
-            harpy.percKill += share
+        self.colosseum.share_attribute("percKill", suicidalpy.percKill, surviors)
+        self.colosseum.share_attribute("percVictim", suicidalpy.percVictim, surviors)
 
+        suicidalpy.kills += 1
         stats.kills += 1
         stats.alive -= 1
-        if len(tmpHarpies) == 1:  # should be only one harpy left after the last suicide
+
+        if len(surviors) == 1:  # should be only one harpy left after the last suicide
             stats.omedetoo = True
-            stats.winner = tmpHarpies[0]
-        tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
+            stats.winner = surviors[0]
+
+        if len(self.suicides) < 1:
+            self.suicides.append("inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet")
+        tweet = suicidalpy.name + " " + random.choice(self.suicides)
+
         return tweet
 
     def get_frequency(self):
         return self.frequency
 
 
-# Both pickers come without withdrawing from the list
 class Revive:
-    def __init__(self, frequency, harpies, shamanPicker, corpsePicker):
+    flavour_file = REVIVEFILE
+
+    def __init__(self, frequency, col, shaman_picker, corpse_picker):
         self.frequency = frequency
-        self.harpies = harpies
-        self.shamanPiker = shamanPicker
-        self.corpsePicker = corpsePicker
+        self.colosseum = col
+        self.shamanPiker = shaman_picker
+        self.corpsePicker = corpse_picker
+        self.revives = InputKun.read_file(self.flavour_file)
 
-    def bang(self, stats):
-        # TODO create flavour text for revives
-
+    def bang(self):
+        stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
-        deadHarpies = get_corpses(self.harpies)
+        surviors = self.colosseum.get_survivors()
+        corpses = self.colosseum.get_corpses()
 
-        shamanpy = self.shamanPiker.pick(tmpHarpies)
-        corpsepy = self.corpsePicker.pick(deadHarpies)
+        if len(corpses)==0:
+            return "Me comentan que alguien intentaba revivir a otro alguien, pero todos estamos vivos. Por motivos de RGPD no revelaré nombres."
+
+        shamanpy = self.shamanPiker.pick(surviors)
+        corpsepy = self.corpsePicker.pick(corpses)
 
         # Resurrected gets half of the victim pecentaje of the shaman
+        # TODO how much killPerc the corpse gets: minimum, average, the same that the shaman (i think this one is best)
 
+        # We add the shaman back in the list so we can leech of him aswell
+        surviors.append(shamanpy)
+        corpsepy.percKill = self.colosseum.leech_attribute("percKill", 0.1, surviors)
+        corpsepy.percVictim = self.colosseum.leech_attribute("percVictim", 0.1, surviors)
         corpsepy.isAlive = True
+
         corpsepy.percVictim += shamanpy.percVictim / 2.
         shamanpy.percVictim = shamanpy.percVictim / 2.
-        self.redistribute_kill_percentage(corpsepy, tmpHarpies)
 
         stats.alive += 1
 
-        return shamanpy.name + " ha revivido a " + corpsepy.name + ". Alabado sea Gilgamesh."
+        if len(self.revives) < 1:
+            self.revives.append(". Alabado sea Gilgamesh.")
+        tweet = shamanpy.name + " ha revivido a " + corpsepy.name + random.choice(self.revives)
 
-    def redistribute_kill_percentage(self, corpsepy, survivors):
-        corpsepy.percKill = 1. / (len(survivors) + 1)
-        killDecrement = corpsepy.percKill / float(len(survivors))
-
-        for auxpy in survivors:
-            auxpy.percKill -= killDecrement
+        return tweet
 
     def get_frequency(self):
         return self.frequency
 
 
 class Curse:
-    def __init__(self, frequency, harpies, shamanPicker, cursedPicker):
+    flavour_file = CURSEFILE
+
+    def __init__(self, frequency, col, shaman_picker, cursed_picker):
         self.frequency = frequency
-        self.harpies = harpies
-        self.shamanPiker = shamanPicker
-        self.cursedPicker = cursedPicker
+        self.colosseum = col
+        self.shamanPiker = shaman_picker
+        self.cursedPicker = cursed_picker
+        self.curses = InputKun.read_file(self.flavour_file)
 
-    def bang(self, stats):
-
-        if stats.omedetoo:
+    def bang(self):
+        stats = self.colosseum.stats
+        if stats.omedetoo or stats.alive < 2:
             return "Se acabó pinche"
 
-        tmpHarpies = get_survivors(self.harpies)
+        surviors = self.colosseum.get_survivors()
 
-        shamanpy = self.shamanPiker.pick(tmpHarpies)
-        acursedpy = self.cursedPicker.pick(tmpHarpies)
+        shamanpy = self.shamanPiker.pick(surviors)
+        acursedpy = self.cursedPicker.pick(surviors)
+        surviors.append(shamanpy)
 
         shamanpy.percKill += acursedpy.percKill / 2.
         acursedpy.percKill = acursedpy.percKill / 2.
-        acursedpy.percVictim = acursedpy.percVictim * 2
+        acursedpy.percVictim += self.colosseum.leech_attribute("percVictim", acursedpy.percVictim, surviors)
 
-        # TODO Create flavour text for curses
-        return shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + ". Se ha convertido en un imán para el peligro"
+        if len(self.curses) < 1:
+            self.curses.append(". Se ha convertido en un imán para el peligro")
+        tweet = shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + random.choice(self.curses)
+
+        return tweet
 
     def get_frequency(self):
         return self.frequency
