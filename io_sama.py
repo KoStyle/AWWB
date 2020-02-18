@@ -3,7 +3,9 @@ import os
 import pickle
 from shutil import copyfile
 
-from constants import ACCESS_TOKENS_DIC, LOGDIR, TXT, TWEETLOG, COLOSSEUM, IMG, PNG
+from twython import Twython, TwythonError
+
+from constants import ACCESS_TOKENS_DIC, TXT, TWEETLOG, COLOSSEUM, IMG, PNG, TOKENSFILE
 
 
 class InputKun:
@@ -39,6 +41,8 @@ class InputKun:
         f.close()
         return listaObj
 
+    # TODO load_queued tweets to be used by ¿Outputchan?
+
 
 class OutputChan:
     @staticmethod
@@ -61,3 +65,16 @@ class OutputChan:
     @staticmethod
     def queue_tweet(queue_path, tweet, img_path, colosseum):
         OutputChan.log_tweet(queue_path, tweet, img_path, colosseum)
+
+    @staticmethod
+    def tweet(tweet, image_path, colosseum):
+        InputKun.read_tokens(TOKENSFILE)
+        atd = ACCESS_TOKENS_DIC
+
+        try:
+            api = Twython(atd.CONSUMER_KEY, atd.CONSUMER_SECRET, atd.ACCESS_KEY, atd.ACCESS_SECRET)
+            photo = open(image_path, 'rb')
+            image_ids = api.upload_media(media=photo)
+            api.update_status(status=tweet, media_ids=image_ids['media_id'])
+        except TwythonError:
+            OutputChan.queue_tweet(tweet, image_path, colosseum)

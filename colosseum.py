@@ -1,6 +1,10 @@
+import math
 import random
 
+from PIL import Image, ImageDraw, ImageFont
+
 from classes import Status, Arpio
+from constants import IMG, PNG, FONT
 from events import Assassination, Coffee, Suicide, Revive, Curse, Draw
 from io_sama import InputKun
 from pickers import KillerPicker, VictimPicker, RandomPicker
@@ -81,3 +85,35 @@ class Colosseum:
         share = to_share / float(len(harpies))
         for harpy in harpies:
             harpy.increase_attribute(att_name, share)
+
+
+    #TODO add background to image using "drawBitmap". I could make a watermark bitmap with the same dimesions
+    def generateStatusImage(self):
+        # We open a template image and get its dimensions
+        pic = Image.open(IMG + PNG)
+        width, height = pic.size
+
+        # We divide the image in 3 columns and as many rows needed
+        # to fit al the harpies
+        col = width / 3.0
+        rows = math.ceil(len(self.harpies) / 3.0)
+        row = height / rows
+
+        # We load a drawable object and the font to use
+        draw = ImageDraw.Draw(pic)
+        font = ImageFont.truetype(FONT, 20)
+        draw.rectangle((0, 0, width, height), (255, 255, 255))
+
+        # We calculate starting coordenades to draw every name with a padding (20)
+        for i in range(len(self.harpies)):
+            x = math.floor(i / rows) * col + 20
+            y = i % rows * row + 20
+
+            draw.text((x, y), self.harpies[i].name + ' (' + str(self.harpies[i].kills) + ' kills)', (0, 0, 0),
+                      font=font)
+
+            # If the harpy is dead, it crosses it out in red
+            if not self.harpies[i].isAlive:
+                xl, yl = font.getsize(self.harpies[i].name)
+                draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
+        pic.save(IMG + PNG)
