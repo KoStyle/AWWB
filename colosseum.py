@@ -10,7 +10,6 @@ class Colosseum:
     def __init__(self):
 
         self.harpies = Arpio.harpy_factory(InputKun.read_file('files/arpios.txt'))
-
         self.stats = Status()
         self.stats.alive = len(self.harpies)
 

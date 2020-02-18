@@ -83,7 +83,7 @@ class Coffee:
             else:
                 tweet += drinkers[i].name + ", "
 
-        if len(self.coffees) > 1:
+        if len(self.coffees) < 1:
             self.coffees.append("ido a tomar un [404: edible item missing]")
 
         tweet += "se han %s. La vida sigue." % random.choice(self.coffees)
