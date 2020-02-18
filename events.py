@@ -29,7 +29,7 @@ class Assassination:
             motif = random.choice(self.weapons)
             self.weapons.remove(motif)
         else:
-            motif = 'una navajita random'
+            motif = 'con la vara de la aleatoriedad'
 
         tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
         victimpy.isAlive = False
@@ -83,6 +83,9 @@ class Coffee:
             else:
                 tweet += drinkers[i].name + ", "
 
+        if len(self.coffees) > 1:
+            self.coffees.append("ido a tomar un [404: edible item missing]")
+
         tweet += "se han %s. La vida sigue." % random.choice(self.coffees)
 
         return tweet
@@ -132,7 +135,11 @@ class Suicide:
         if len(surviors) == 1:  # should be only one harpy left after the last suicide
             stats.omedetoo = True
             stats.winner = surviors[0]
-        tweet = suicidalpy.name + ' inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet'
+
+        if len(self.suicides) < 1:
+            self.suicides.append("inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet")
+        tweet = suicidalpy.name + " " + random.choice(self.suicides)
+
         return tweet
 
     def get_frequency(self):
@@ -150,13 +157,15 @@ class Revive:
         self.revives = InputKun.read_file(self.flavour_file)
 
     def bang(self):
-        # TODO create flavour text for revives
         stats = self.colosseum.stats
         if stats.omedetoo:
             return "Se acabó pinche"
 
         surviors = self.colosseum.get_survivors()
         corpses = self.colosseum.get_corpses()
+
+        if len(corpses)==0:
+            return "Me comentan que alguien intentaba revivir a otro alguien, pero todos estamos vivos. Por motivos de RGPD no revelaré nombres."
 
         shamanpy = self.shamanPiker.pick(surviors)
         corpsepy = self.corpsePicker.pick(corpses)
@@ -175,7 +184,11 @@ class Revive:
 
         stats.alive += 1
 
-        return shamanpy.name + " ha revivido a " + corpsepy.name + ". Alabado sea Gilgamesh."
+        if len(self.revives) < 1:
+            self.revives.append(". Alabado sea Gilgamesh.")
+        tweet = shamanpy.name + " ha revivido a " + corpsepy.name + random.choice(self.revives)
+
+        return tweet
 
     def get_frequency(self):
         return self.frequency
@@ -206,8 +219,11 @@ class Curse:
         acursedpy.percKill = acursedpy.percKill / 2.
         acursedpy.percVictim += self.colosseum.leech_attribute("percVictim", acursedpy.percVictim, surviors)
 
-        # TODO Create flavour text for curses
-        return shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + ". Se ha convertido en un imán para el peligro"
+        if len(self.curses) < 1:
+            self.curses.append(". Se ha convertido en un imán para el peligro")
+        tweet = shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + random.choice(self.curses)
+
+        return tweet
 
     def get_frequency(self):
         return self.frequency

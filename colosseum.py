@@ -8,6 +8,7 @@ from pickers import KillerPicker, VictimPicker, RandomPicker
 class Colosseum:
     def __init__(self):
 
+        #TODO Change this to make the read from InputKun
         self.harpies = Arpio.harpy_factory('files/arpios.txt')
 
         self.stats = Status()
