@@ -48,6 +48,8 @@ class RandomPicker:
         return harpy
 
 
+
+#Deprecated: All pickers MUST remove the picked element from the original list
 class RandomPickerNoDelete:
 
     def pick(selfs, harpies):

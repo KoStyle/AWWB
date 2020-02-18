@@ -1,10 +1,10 @@
-# TODO try to refactor the bangs to streamline then. Find all the redundant code and do somethin like with the pickers
+
 import os
 import random
 
 from classes import InputKun, STATUS, TXT, CAFE, OBJETOS, ARPIOS, Status, Arpio
 from events import Assassination, Coffee, Suicide, Revive, Curse
-from pickers import KillerPicker, VictimPicker, RandomPicker, RandomPickerNoDelete
+from pickers import KillerPicker, VictimPicker, RandomPicker
 
 
 class Colosseum:
@@ -35,7 +35,7 @@ class Colosseum:
         self.events.append(Assassination(90, self, self.weapons, KillerPicker(), VictimPicker()))
         self.events.append(Coffee(2.5, self, self.coffees, RandomPicker()))
         self.events.append(Suicide(2.5, self, KillerPicker()))
-        self.events.append(Revive(2.5, self, RandomPickerNoDelete(), RandomPickerNoDelete()))
+        self.events.append(Revive(2.5, self, RandomPicker(), RandomPicker()))
         self.events.append(Curse(2.5, self, RandomPicker(), RandomPicker()))
 
     def i_command_you_to_pick_the_event(self):
@@ -87,3 +87,14 @@ class Colosseum:
             if not self.harpies[index].isAlive:
                 corpses.append(self.harpies[index])
         return corpses
+
+    def leech_attribute(self, att_name, leech_percent, harpies):
+        total_leeched = 0
+        for harpy in harpies:
+            total_leeched += harpy.decrease_percentage(att_name, leech_percent)
+        return total_leeched
+
+    def share_attribute(self, att_name, to_share, harpies):
+        share = to_share / float(len(harpies))
+        for harpy in harpies:
+            harpy.increase_attribute(att_name, share)
