@@ -1,17 +1,20 @@
 import random
 
+from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE
+from io_sama import InputKun
 
-# TODO Events need a reference to InputKun
-# TODO Make each event get its own flavour list using InputKun (colosseum doesn't need to know about them as they only make sense in their respective event)
+
 class Assassination:
-    def __init__(self, frequency, col, weapons, killer_picker, victim_picker):
+    flavour_file = WEAPONFILE
+
+    def __init__(self, frequency, col, killer_picker, victim_picker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.colosseum = col
         self.killerPicker = killer_picker
         self.victimPicker = victim_picker
-        self.weapons = weapons
+        self.weapons = InputKun.read_file(self.flavour_file)
 
     def bang(self):
         stats = self.colosseum.stats
@@ -53,13 +56,15 @@ class Assassination:
 
 
 class Coffee:
-    def __init__(self, frequency, col, coffees, picker):
+    flavour_file = COFFEEFILE
+
+    def __init__(self, frequency, col, picker):
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
         self.colosseum = col
         self.picker = picker
-        self.coffees = coffees
+        self.coffees = InputKun.read_file(self.flavour_file)
 
     def bang(self):
         stats = self.colosseum.stats
@@ -100,10 +105,13 @@ class Coffee:
 
 
 class Suicide:
+    flavour_file = SUICIDEFILE
+
     def __init__(self, frequency, col, killer_picker):
         self.frequency = frequency
         self.colosseum = col
         self.killerPicker = killer_picker
+        self.suicides = InputKun.read_file(self.flavour_file)
 
     def bang(self):
         stats = self.colosseum.stats
@@ -132,11 +140,14 @@ class Suicide:
 
 
 class Revive:
+    flavour_file = REVIVEFILE
+
     def __init__(self, frequency, col, shaman_picker, corpse_picker):
         self.frequency = frequency
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.corpsePicker = corpse_picker
+        self.revives = InputKun.read_file(self.flavour_file)
 
     def bang(self):
         # TODO create flavour text for revives
@@ -171,11 +182,14 @@ class Revive:
 
 
 class Curse:
+    flavour_file = CURSEFILE
+
     def __init__(self, frequency, col, shaman_picker, cursed_picker):
         self.frequency = frequency
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.cursedPicker = cursed_picker
+        self.curses = InputKun.read_file(self.flavour_file)
 
     def bang(self):
         stats = self.colosseum.stats

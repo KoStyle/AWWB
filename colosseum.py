@@ -1,8 +1,6 @@
-
-import os
 import random
 
-from classes import InputKun, STATUS, TXT, CAFE, OBJETOS, ARPIOS, Status, Arpio
+from classes import Status, Arpio
 from events import Assassination, Coffee, Suicide, Revive, Curse
 from pickers import KillerPicker, VictimPicker, RandomPicker
 
@@ -10,30 +8,14 @@ from pickers import KillerPicker, VictimPicker, RandomPicker
 class Colosseum:
     def __init__(self):
 
-        if os.path.isfile(ARPIOS + TXT):
-            self.harpies = InputKun.load_pickle(ARPIOS + TXT)
-        else:
-            self.harpies = Arpio.harpy_factory('files/arpios.txt')
+        self.harpies = Arpio.harpy_factory('files/arpios.txt')
 
-        if os.path.isfile(OBJETOS + TXT):
-            self.weapons = InputKun.load_pickle(OBJETOS + TXT)
-        else:
-            self.weapons = InputKun.read_file('files/objetos.txt')
-
-        if os.path.isfile(CAFE + TXT):
-            self.coffees = InputKun.load_pickle(CAFE + TXT)
-        else:
-            self.coffees = InputKun.read_file('files/cafes.txt')
-
-        if os.path.isfile(STATUS + TXT):
-            self.stats = InputKun.load_pickle(STATUS + TXT)
-        else:
-            self.stats = Status()
-            self.stats.alive = len(self.harpies)
+        self.stats = Status()
+        self.stats.alive = len(self.harpies)
 
         self.events = []
-        self.events.append(Assassination(90, self, self.weapons, KillerPicker(), VictimPicker()))
-        self.events.append(Coffee(2.5, self, self.coffees, RandomPicker()))
+        self.events.append(Assassination(90, self, KillerPicker(), VictimPicker()))
+        self.events.append(Coffee(2.5, self, RandomPicker()))
         self.events.append(Suicide(2.5, self, KillerPicker()))
         self.events.append(Revive(2.5, self, RandomPicker(), RandomPicker()))
         self.events.append(Curse(2.5, self, RandomPicker(), RandomPicker()))
