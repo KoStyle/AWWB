@@ -1,6 +1,9 @@
+import datetime
+import os
 import pickle
+from shutil import copyfile
 
-from constants import ACCESS_TOKENS_DIC
+from constants import ACCESS_TOKENS_DIC, LOGDIR, TXT, TWEETLOG, COLOSSEUM, IMG, PNG
 
 
 class InputKun:
@@ -10,7 +13,7 @@ class InputKun:
         lista = []
         try:
             f = open(file, 'r', encoding='latin1')
-        except:
+        except FileNotFoundError:
             f = open(file, 'w+', encoding='latin1')
         line = f.readline()
         while line:
@@ -36,8 +39,25 @@ class InputKun:
         f.close()
         return listaObj
 
+
+class OutputChan:
     @staticmethod
     def save_pickle(file, obj):
         f = open(file, 'wb')
         pickle.dump(obj, f)
         f.close()
+
+    @staticmethod
+    def log_tweet(log_path, tweet, img_path, colosseum):
+        now = datetime.datetime.now().strftime('%Y%m%d%H%M')
+        if not os.path.isdir(log_path):
+            os.mkdir(log_path)
+        tweet_file = open(log_path + "/" + TWEETLOG + now + TXT, "w")
+        tweet_file.write(tweet)
+
+        OutputChan.save_pickle(COLOSSEUM + now + TXT, colosseum)
+        copyfile(img_path, log_path + "/" + IMG + now + PNG)
+
+    @staticmethod
+    def queue_tweet(queue_path, tweet, img_path, colosseum):
+        OutputChan.log_tweet(queue_path, tweet, img_path, colosseum)

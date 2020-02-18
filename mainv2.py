@@ -11,20 +11,26 @@ import util
 from colosseum import Colosseum
 
 
-# TODO ideas:
+# TODO v2 ideas:
 # Events structure
 # Kills (Done)
 # Coffees (Done)
 # Suicides (Done)
-# Draws
+# Draws (Done)
 # Love affairs (possibility of magnetismn between player (makes them more likely to kill eachother))
-# Missed hits/defense teamups
+# Defense teamups
 # Revives (Done)
 # Curses (Done)
 # Event randomization (Done)
-# EasterEggs for certain combinations
-# Neutral Manu
+
+# TODO v3 ideas:
+# Kill by popular demand (events that wait for user interaction. needs from IO_Sama)
 # Support for mentions
+# EasterEggs for certain combinations
+### Neutral Manu
+### Jeaggerbrothers
+### Mon Amour
+### Megazord
 
 def generateStatusImage(lista):
     pic = Image.open(util.IMG + util.PNG)
