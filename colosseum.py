@@ -2,14 +2,14 @@ import random
 
 from classes import Status, Arpio
 from events import Assassination, Coffee, Suicide, Revive, Curse
+from io_sama import InputKun
 from pickers import KillerPicker, VictimPicker, RandomPicker
 
 
 class Colosseum:
     def __init__(self):
 
-        #TODO Change this to make the read from InputKun
-        self.harpies = Arpio.harpy_factory('files/arpios.txt')
+        self.harpies = Arpio.harpy_factory(InputKun.read_file('files/arpios.txt'))
 
         self.stats = Status()
         self.stats.alive = len(self.harpies)

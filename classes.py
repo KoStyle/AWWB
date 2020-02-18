@@ -7,20 +7,17 @@ class Arpio:
         self.kills = int(0)
 
     @staticmethod
-    def harpy_factory(file):
-        lista = []
-        f = open(file, 'r', encoding='latin1')
-        line = f.readline()
-        while line:
-            lista.append(Arpio(line.strip()))
-            line = f.readline()
-        cantidad = len(lista)
-        for i in range(len(lista)):
-            lista[i].percKill = 1. / cantidad
-            lista[i].percVictim = 1. / cantidad
+    def harpy_factory(names):
+        harpies = []
+        for name in names:
+            harpies.append(Arpio(name.strip()))
+        total_harpies = len(harpies)
 
-        lista.sort(key=lambda x: x.name)
-        return lista
+        for harpy in harpies:
+            harpy.percKill = 1. / total_harpies
+            harpy.percVictim = 1. / total_harpies
+        harpies.sort(key=lambda x: x.name)
+        return harpies
 
     def __adjust_attribute__(self, att_name, delta):
         tmp_sum = self.__getattribute__(att_name) + delta
