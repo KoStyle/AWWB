@@ -7,6 +7,7 @@ COFFEEFILE = "files/cafes.txt"
 REVIVEFILE = "files/revive.txt"
 SUICIDEFILE = "files/suicide.txt"
 CURSEFILE = "files/curse.txt"
+DRAWFILE = "files/draw.txt"
 TXT = '.txt'
 PNG = '.png'
 FONT = "files/font.ttf"

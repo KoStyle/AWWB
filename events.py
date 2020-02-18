@@ -1,9 +1,10 @@
 import random
 
-from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE
+from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE, DRAWFILE
 from io_sama import InputKun
 
 
+# TODO create a parent event class and move getFrequency there and some attributes (maybe get rid of get frequency altogheter
 class Assassination:
     flavour_file = WEAPONFILE
 
@@ -164,7 +165,7 @@ class Revive:
         surviors = self.colosseum.get_survivors()
         corpses = self.colosseum.get_corpses()
 
-        if len(corpses)==0:
+        if len(corpses) == 0:
             return "Me comentan que alguien intentaba revivir a otro alguien, pero todos estamos vivos. Por motivos de RGPD no revelaré nombres."
 
         shamanpy = self.shamanPiker.pick(surviors)
@@ -222,6 +223,36 @@ class Curse:
         if len(self.curses) < 1:
             self.curses.append(". Se ha convertido en un imán para el peligro")
         tweet = shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + random.choice(self.curses)
+
+        return tweet
+
+    def get_frequency(self):
+        return self.frequency
+
+
+class Draw:
+    flavour_file = DRAWFILE
+
+    def __init__(self, frequency, col, killer_picker, victim_picker):
+        self.frequency = frequency
+        self.colosseum = col
+        self.killer_picker = killer_picker
+        self.victim_picker = victim_picker
+        self.draws = InputKun.read_file(self.flavour_file)
+
+    def bang(self):
+        stats = self.colosseum.stats
+        if stats.omedetoo or stats.alive < 2:
+            return "Se acabó pinche"
+
+        surviors = self.colosseum.get_survivors()
+
+        killer = self.killer_picker.pick(surviors)
+        victim = self.victim_picker.pick(surviors)
+
+        if len(self.draws) < 1:
+            self.draws.append(". Alto! Parece que no ha muerto! Con algo de suerte vivirá para luchar un día más")
+        tweet = killer.name + " le ha disparado y derribado a " + victim.name + random.choice(self.draws)
 
         return tweet
 

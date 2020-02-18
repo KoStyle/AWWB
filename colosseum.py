@@ -1,7 +1,7 @@
 import random
 
 from classes import Status, Arpio
-from events import Assassination, Coffee, Suicide, Revive, Curse
+from events import Assassination, Coffee, Suicide, Revive, Curse, Draw
 from io_sama import InputKun
 from pickers import KillerPicker, VictimPicker, RandomPicker
 
@@ -14,11 +14,12 @@ class Colosseum:
         self.stats.alive = len(self.harpies)
 
         self.events = []
-        self.events.append(Assassination(90, self, KillerPicker(), VictimPicker()))
+        self.events.append(Assassination(87.5, self, KillerPicker(), VictimPicker()))
         self.events.append(Coffee(2.5, self, RandomPicker()))
         self.events.append(Suicide(2.5, self, KillerPicker()))
         self.events.append(Revive(2.5, self, RandomPicker(), RandomPicker()))
         self.events.append(Curse(2.5, self, RandomPicker(), RandomPicker()))
+        self.events.append(Draw(2.5, self, KillerPicker(), VictimPicker()))
 
     def i_command_you_to_pick_the_event(self):
         threshold = random.random()
