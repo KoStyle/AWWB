@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mainv2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+            <state relative-caret-position="323">
+              <caret line="19" column="100" lean-forward="true" selection-start-line="19" selection-start-column="100" selection-end-line="19" selection-end-column="100" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -30,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/colosseum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="215">
+              <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -60,16 +60,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/events.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="222" column="32" selection-start-line="222" selection-start-column="32" selection-end-line="222" selection-end-column="77" />
+            <state relative-caret-position="-691">
+              <caret line="85" column="30" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#246#1954#0" />
                 <element signature="e#582#1898#0" />
-                <element signature="e#2094#3358#0" />
               </folding>
             </state>
           </provider>
@@ -150,8 +149,8 @@
         <option value="$PROJECT_DIR$/constants.py" />
         <option value="$PROJECT_DIR$/io_sama.py" />
         <option value="$PROJECT_DIR$/classes.py" />
-        <option value="$PROJECT_DIR$/colosseum.py" />
         <option value="$PROJECT_DIR$/events.py" />
+        <option value="$PROJECT_DIR$/colosseum.py" />
       </list>
     </option>
   </component>
@@ -501,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582039686794</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="-Fixed minor bugs">
+      <created>1582041117175</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1582041117175</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
@@ -518,11 +524,11 @@
       <window_info id="Favorites" order="1" side_tool="true" weight="0.32995737" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.4312026" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.4312026" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.40086675" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.248104" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" visible="true" weight="0.248104" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946696" weight="0.19393283" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.094257854" />
@@ -592,7 +598,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
-    <MESSAGE value="Reorganizing files" />
     <MESSAGE value="Minor fixes" />
     <MESSAGE value="Refactoring of method names and code in general" />
     <MESSAGE value="More refactoring" />
@@ -617,7 +622,8 @@
     <MESSAGE value="-InputKun to his own file&#10;-Every flavour list using InputKun&#10;-Colosseum doesn't read any files&#10;-Constants added for original flavour files" />
     <MESSAGE value="-Fixes in the events' flavouring" />
     <MESSAGE value="-Colosseum uses InputKun to read harpies, instead of opening the file in the Harpy_factorio of Arpio" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Colosseum uses InputKun to read harpies, instead of opening the file in the Harpy_factorio of Arpio" />
+    <MESSAGE value="-Fixed minor bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Fixed minor bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -806,16 +812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainv2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/random.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -840,25 +836,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/events.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-691">
+          <caret line="85" column="30" selection-start-line="85" selection-start-column="30" selection-end-line="85" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#246#1954#0" />
+            <element signature="e#582#1898#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/colosseum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="215">
+          <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/events.py">
+    <entry file="file://$PROJECT_DIR$/mainv2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="222" column="32" selection-start-line="222" selection-start-column="32" selection-end-line="222" selection-end-column="77" />
+        <state relative-caret-position="323">
+          <caret line="19" column="100" lean-forward="true" selection-start-line="19" selection-start-column="100" selection-end-line="19" selection-end-column="100" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#246#1954#0" />
-            <element signature="e#582#1898#0" />
-            <element signature="e#2094#3358#0" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
