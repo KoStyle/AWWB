@@ -49,7 +49,7 @@ class InputKun:
         return thing
 
     @staticmethod
-    def load_queued_tweet():
+    def load_queued_tweets():
         if not os.path.isdir(QUEUEDIR):
             return ""
         regex = re.compile("^tweet([0-9]{8})\.txt$")
@@ -57,13 +57,18 @@ class InputKun:
         if len(queue) < 1:
             return ""
 
+        sweet_tweet_info = []
         qtweets = [file for file in queue if regex.match(file.name)]
 
         for tmp_tweet in qtweets:
-            date_extension = regex.match(tmp_tweet).group(1)
-            if not os.path.isfile(QUEUEDIR + "/" + IMG + date_extension + TXT):
-                return "No tweet image"
+            single_tweet = []
+            date_extension = regex.match(tmp_tweet.name).group(1)
+            if os.path.isfile(QUEUEDIR + "/" + IMG + date_extension + PNG):
+                single_tweet.append(tmp_tweet.name)
+                single_tweet.append(IMG + date_extension + PNG)
+                sweet_tweet_info.append(single_tweet)
 
+        return sweet_tweet_info
 
     # TODO Use exceptions in these methods instead of returning ""
 
