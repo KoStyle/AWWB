@@ -2,6 +2,7 @@ import datetime
 import os
 import pickle
 import re
+from os.path import isfile, join
 from shutil import copyfile
 
 from twython import Twython, TwythonError
@@ -25,8 +26,8 @@ class InputKun:
         return lista
 
     @staticmethod
-    def list_files_in_dir(dir):
-        files = [f for f in listdir(dir) if isfile(join(dir, f))]
+    def list_files_in_dir(container):
+        files = [f for f in os.listdir(container) if isfile(join(container, f))]
         return files
 
     @staticmethod
@@ -43,31 +44,28 @@ class InputKun:
     @staticmethod
     def load_pickle(file):
         f = open(file, 'rb')
-        listaObj = pickle.load(f)
+        thing = pickle.load(f)
         f.close()
-        return listaObj
+        return thing
 
     @staticmethod
     def load_queued_tweet():
         if not os.path.isdir(QUEUEDIR):
             return ""
         regex = re.compile("^tweet([0-9]{8})\.txt$")
-        queue= InputChan.list_files_in_dir(QUEUEDIR)
-        if len(queue)<1:
+        queue = InputKun.list_files_in_dir(QUEUEDIR)
+        if len(queue) < 1:
             return ""
-        else:
-            qtweets=[file for file in queue if regex.match(file.name)]
 
-            for tmp_tweet in qtweets:
-                date_extension= regex.match(tmp_tweet).group(1)
-                if not os.path.isfile(QUEUEDIR + "/" + IMG + date_extension + TXT):
-                    return "No tweet image"
+        qtweets = [file for file in queue if regex.match(file.name)]
 
-
+        for tmp_tweet in qtweets:
+            date_extension = regex.match(tmp_tweet).group(1)
+            if not os.path.isfile(QUEUEDIR + "/" + IMG + date_extension + TXT):
+                return "No tweet image"
 
 
-
-    # TODO load_queued tweets to be used by ¿Outputchan?
+    # TODO Use exceptions in these methods instead of returning ""
 
 
 class OutputChan:

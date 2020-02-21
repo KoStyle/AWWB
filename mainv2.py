@@ -25,6 +25,7 @@ from colosseum import Colosseum
 
 # TODO v3 ideas:
 # Kill by popular demand (events that wait for user interaction. needs from IO_Sama)
+# Rewrite access to the print name of Arpies
 # Support for mentions
 # EasterEggs for certain combinations
 ### Neutral Manu
