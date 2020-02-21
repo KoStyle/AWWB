@@ -1,11 +1,12 @@
 import datetime
 import os
 import pickle
+import re
 from shutil import copyfile
 
 from twython import Twython, TwythonError
 
-from constants import ACCESS_TOKENS_DIC, TXT, TWEETLOG, COLOSSEUM, IMG, PNG, TOKENSFILE
+from constants import ACCESS_TOKENS_DIC, TXT, TWEETLOG, COLOSSEUM, IMG, PNG, TOKENSFILE, QUEUEDIR
 
 
 class InputKun:
@@ -24,6 +25,11 @@ class InputKun:
         return lista
 
     @staticmethod
+    def list_files_in_dir(dir):
+        files = [f for f in listdir(dir) if isfile(join(dir, f))]
+        return files
+
+    @staticmethod
     def read_tokens(file):
         f = open(file, 'r', encoding='latin1')
         line = f.readline()
@@ -40,6 +46,26 @@ class InputKun:
         listaObj = pickle.load(f)
         f.close()
         return listaObj
+
+    @staticmethod
+    def load_queued_tweet():
+        if not os.path.isdir(QUEUEDIR):
+            return ""
+        regex = re.compile("^tweet([0-9]{8})\.txt$")
+        queue= InputChan.list_files_in_dir(QUEUEDIR)
+        if len(queue)<1:
+            return ""
+        else:
+            qtweets=[file for file in queue if regex.match(file.name)]
+
+            for tmp_tweet in qtweets:
+                date_extension= regex.match(tmp_tweet).group(1)
+                if not os.path.isfile(QUEUEDIR + "/" + IMG + date_extension + TXT):
+                    return "No tweet image"
+
+
+
+
 
     # TODO load_queued tweets to be used by ¿Outputchan?
 
@@ -77,4 +103,4 @@ class OutputChan:
             image_ids = api.upload_media(media=photo)
             api.update_status(status=tweet, media_ids=image_ids['media_id'])
         except TwythonError:
-            OutputChan.queue_tweet(tweet, image_path, colosseum)
+            OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum)
