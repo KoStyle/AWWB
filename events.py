@@ -9,6 +9,9 @@ class Assassination:
     flavour_file = WEAPONFILE
 
     def __init__(self, frequency, col, killer_picker, victim_picker):
+        if killer_picker is None or victim_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
@@ -60,6 +63,8 @@ class Coffee:
     flavour_file = COFFEEFILE
 
     def __init__(self, frequency, col, picker):
+        if picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
         self.frequency = frequency
         self.lastTweet = ""
         self.curretTweet = ""
@@ -112,6 +117,9 @@ class Suicide:
     flavour_file = SUICIDEFILE
 
     def __init__(self, frequency, col, killer_picker):
+        if killer_picker is None  or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
         self.frequency = frequency
         self.colosseum = col
         self.killerPicker = killer_picker
@@ -151,6 +159,8 @@ class Revive:
     flavour_file = REVIVEFILE
 
     def __init__(self, frequency, col, shaman_picker, corpse_picker):
+        if killer_picker is None or victim_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
         self.frequency = frequency
         self.colosseum = col
         self.shamanPiker = shaman_picker
