@@ -12,7 +12,7 @@ class Assassination:
         if killer_picker is None or victim_picker is None or col is None:
             raise EventError("Init error: Null parameters passed to the constructor method")
 
-        self.frequency = frequency
+        self.frequency = frequency if not frequency is None else 1
         self.lastTweet = ""
         self.curretTweet = ""
         self.colosseum = col
@@ -65,7 +65,8 @@ class Coffee:
     def __init__(self, frequency, col, picker):
         if picker is None or col is None:
             raise EventError("Init error: Null parameters passed to the constructor method")
-        self.frequency = frequency
+
+        self.frequency = frequency if not frequency is None else 1
         self.lastTweet = ""
         self.curretTweet = ""
         self.colosseum = col
@@ -120,7 +121,7 @@ class Suicide:
         if killer_picker is None  or col is None:
             raise EventError("Init error: Null parameters passed to the constructor method")
 
-        self.frequency = frequency
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.killerPicker = killer_picker
         self.suicides = InputKun.read_file(self.flavour_file)
@@ -159,9 +160,10 @@ class Revive:
     flavour_file = REVIVEFILE
 
     def __init__(self, frequency, col, shaman_picker, corpse_picker):
-        if killer_picker is None or victim_picker is None or col is None:
+        if shaman_picker is None or corpse_picker is None or col is None:
             raise EventError("Init error: Null parameters passed to the constructor method")
-        self.frequency = frequency
+
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.corpsePicker = corpse_picker
@@ -170,7 +172,7 @@ class Revive:
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo:
-            return "Se acabó pinche"
+            raise EventError("Omedetoo! Git out!")
 
         surviors = self.colosseum.get_survivors()
         corpses = self.colosseum.get_corpses()
@@ -209,7 +211,10 @@ class Curse:
     flavour_file = CURSEFILE
 
     def __init__(self, frequency, col, shaman_picker, cursed_picker):
-        self.frequency = frequency
+        if shaman_picker is None or cursed_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.cursedPicker = cursed_picker
@@ -218,7 +223,7 @@ class Curse:
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo or stats.alive < 2:
-            return "Se acabó pinche"
+            raise EventError("Omedetoo! Git out!")
 
         surviors = self.colosseum.get_survivors()
 
@@ -244,7 +249,10 @@ class Draw:
     flavour_file = DRAWFILE
 
     def __init__(self, frequency, col, killer_picker, victim_picker):
-        self.frequency = frequency
+        if killer_picker is None or victim_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.killer_picker = killer_picker
         self.victim_picker = victim_picker
@@ -253,7 +261,7 @@ class Draw:
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo or stats.alive < 2:
-            return "Se acabó pinche"
+            raise EventError("Omedetoo! Git out!")
 
         surviors = self.colosseum.get_survivors()
 
