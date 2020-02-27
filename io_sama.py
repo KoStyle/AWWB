@@ -53,8 +53,8 @@ class InputKun:
         if not os.path.isdir(directory):
             return ""
         regex = re.compile("^tweet([0-9]{8})\.txt$")
-        queue= InputChan.list_files_in_dir(directory)
-        if len(queue)<1:
+        queue = InputKun.list_files_in_dir(directory)
+        if len(queue) < 1:
             return ""
 
         sweet_tweet_info = []
@@ -96,7 +96,7 @@ class OutputChan:
         OutputChan.log_tweet(queue_path, tweet, img_path, colosseum)
 
     @staticmethod
-    def tweet(tweet, image_path, colosseum_str=None, live=True):
+    def tweet_image(tweet, image_path, live=True):
         if not live:
             return
 
@@ -109,23 +109,37 @@ class OutputChan:
             image_ids = api.upload_media(media=photo)
             api.update_status(status=tweet, media_ids=image_ids['media_id'])
         except TwythonError:
-            #OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
+            # OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
             raise TwythonError("Failed to tweet. Queued tweet")
 
+    @staticmethod
+    def tweet_text(tweet, live=True):
+        if not live:
+            return
+        InputKun.read_tokens(TOKENSFILE)
+        atd = ACCESS_TOKENS_DIC
+        try:
+            api = Twython(atd.CONSUMER_KEY, atd.CONSUMER_SECRET, atd.ACCESS_KEY, atd.ACCESS_SECRET)
+            api.update_status(status=tweet)
+        except TwythonError:
+            # OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
+            raise TwythonError("Failed to tweet. Queued tweet")
+
+    @staticmethod
     def delete_queued_tweet(tweet_file, img_file, colosseum_file):
         os.remove(tweet_file)
         os.remove(img_file)
         os.remove(colosseum_file)
 
+    @staticmethod
     def process_queue(directory, live=False):
-        #TODO change this so tweets have ID instead of timestamp and I just give an ID to delete
-        #This is a list of lists. Each sublist contains the filenames for the tweet, the image and the colosseum pickle (the last one is not used in this case)
-        almighty_tweet_queue= InputKun.load_queued_tweets(directory)
+        # TODO change this so tweets have ID instead of timestamp and I just give an ID to delete
+        # This is a list of lists. Each sublist contains the filenames for the tweet, the image and the colosseum pickle (the last one is not used in this case)
+        almighty_tweet_queue = InputKun.load_queued_tweets(directory)
         for tweet_element in almighty_tweet_queue:
-            tweet_text= open(tweet_element[0], "r").readline
+            tweet_text = open(tweet_element[0], "r").readline
             try:
-                tweet(tweet_text, tweet_element[1], tweet_element[2], live)
-                delete_queued_tweet(tweet_element[0], tweet_element[1], tweet_element[2])
+                OutputChan.tweet_text(tweet_text, tweet_element[1], tweet_element[2], live)
+                OutputChan.delete_queued_tweet(tweet_element[0], tweet_element[1], tweet_element[2])
             except TwythonError as e:
                 print(str(e))
-
