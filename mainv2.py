@@ -32,25 +32,6 @@ from colosseum import Colosseum
 ### Mon Amour
 ### Megazord
 
-def generateStatusImage(lista):
-    pic = Image.open(util.IMG + util.PNG)
-    width, height = pic.size
-    col = width / 3.0
-    rows = math.ceil(len(lista) / 3.0)
-    row = height / rows
-    draw = ImageDraw.Draw(pic)
-    font = ImageFont.truetype(util.FONT, 20)
-    draw.rectangle((0, 0, width, height), (255, 255, 255))
-
-    for i in range(len(lista)):
-        x = math.floor(i / rows) * col + 20
-        y = i % rows * row + 20
-        xl, yl = font.getsize(lista[i].name)
-
-        draw.text((x, y), lista[i].name + ' (' + str(lista[i].kills) + ' kills)', (0, 0, 0), font=font)
-        if not lista[i].isAlive:
-            draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
-    pic.save(util.IMG + util.PNG)
 
 
 ##script
