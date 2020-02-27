@@ -60,3 +60,33 @@ i = 1
 while not colosseum.is_over():
     print("Ronda " + str(i) + ": " + colosseum.let_the_games_begin())
     i += 1
+
+
+def stateful_call(tweet_for_real=True):
+    colosseum=InputKun.load_pickle(COLOSSEUM)
+    if colosseum==None :
+        colosseum=Colosseum()
+
+
+    tweet=""
+    ruta_img= IMG + PNG
+    if not colosseum.is_over():
+        tweet=colosseum.let_the_games_begin()
+        colosseum.generateStatusImage(ruta_img)
+        OutputChan.log_tweet(LOGDIR, tweet, ruta_img, colosseum)
+        OutputChan.queue_tweet(QUEUEDIR ,tweet, ruta_img, colosseum)
+        OutputChan.process_queue(QUEUEDIR, tweet_for_real)  #TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)
+        
+        if colosseum.is_over():
+            #TODO Congratulations message (method in colosseum)
+            colosseum.congratulations()
+
+def stateful_dequeue():
+    colosseum=InputKun.load_pickle(COLOSSEUM)
+    if colosseum==None :
+        raise Exception("Wrong pickle")
+    OutputChan.process_queue(QUEUEDIR)  #TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)
+
+
+
+

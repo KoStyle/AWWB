@@ -41,8 +41,8 @@ class InputKun:
         return
 
     @staticmethod
-    def load_pickle(file):
-        f = open(file, 'rb')
+    def load_pickle(file_str):
+        f = open(file_str, 'rb')
         listaObj = pickle.load(f)
         f.close()
         return listaObj
@@ -67,7 +67,7 @@ class InputKun:
 
 
 
-    # TODO load_queued tweets to be used by ¿Outputchan?
+    # TODO load_queued tweets to be used by ¿Outputchan? YESSSS! CORRECT!!
 
 
 class OutputChan:

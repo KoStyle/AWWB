@@ -13,6 +13,7 @@ from pickers import KillerPicker, VictimPicker, RandomPicker
 class Colosseum:
     def __init__(self):
 
+        #TODO change this to constants
         self.harpies = Arpio.harpy_factory(InputKun.read_file('files/arpios.txt'))
         self.stats = Status()
         self.stats.alive = len(self.harpies)
@@ -88,7 +89,7 @@ class Colosseum:
 
 
     #TODO add background to image using "drawBitmap". I could make a watermark bitmap with the same dimesions
-    def generateStatusImage(self):
+    def generateStatusImage(self, img_str):
         # We open a template image and get its dimensions
         pic = Image.open(IMG + PNG)
         width, height = pic.size
@@ -117,3 +118,4 @@ class Colosseum:
                 xl, yl = font.getsize(self.harpies[i].name)
                 draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
         pic.save(IMG + PNG)
+
