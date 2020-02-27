@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1018755a-20e7-4a80-a58f-ffb3e9b5a009" name="Default Changelist" comment="-Changes in gitignore">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="1018755a-20e7-4a80-a58f-ffb3e9b5a009" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/events.py" beforeDir="false" afterPath="$PROJECT_DIR$/events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/io_sama.py" beforeDir="false" afterPath="$PROJECT_DIR$/io_sama.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,20 +21,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="-125">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -70,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/io_sama.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="100" selection-start-line="100" selection-end-line="100" />
+            <state relative-caret-position="271">
+              <caret line="146" selection-start-line="146" selection-end-line="146" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -82,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/events.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+            <state relative-caret-position="-3617">
+              <caret line="56" column="15" selection-start-line="56" selection-start-column="15" selection-end-line="56" selection-end-column="15" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -109,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/constants.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="198">
+              <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -165,11 +158,11 @@
         <option value="$PROJECT_DIR$/mainv2.py" />
         <option value="$PROJECT_DIR$/mainv.py" />
         <option value="$PROJECT_DIR$/classes.py" />
-        <option value="$PROJECT_DIR$/events.py" />
-        <option value="$PROJECT_DIR$/constants.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/io_sama.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/events.py" />
+        <option value="$PROJECT_DIR$/io_sama.py" />
+        <option value="$PROJECT_DIR$/constants.py" />
       </list>
     </option>
   </component>
@@ -591,7 +584,21 @@
       <option name="project" value="LOCAL" />
       <updated>1582837464826</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="-Changes in gitignore!!">
+      <created>1582837503972</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1582837503972</updated>
+    </task>
+    <task id="LOCAL-00045" summary="-Fixes in load queue">
+      <created>1582838165322</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1582838165322</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TodoView">
@@ -609,7 +616,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.21343446" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.40086675" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.40086675" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.248104" />
@@ -620,7 +627,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="3" visible="true" weight="0.19936034" />
+      <window_info anchor="right" content_ui="combo" id="Project" order="3" visible="true" weight="0.19936034" />
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -682,9 +689,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
-    <MESSAGE value="Implemented Curse event (it doubles the victim percentage of the course's target. The caster steals half of the killing percentage" />
-    <MESSAGE value="Annotations and ideas" />
-    <MESSAGE value="Modifications on the revive event (redistribution of all kill probabilities (might lose a bit of precision)&#10;&#10;Fixes in Curse event" />
     <MESSAGE value="minor changes" />
     <MESSAGE value="-Creation of event objects in Colosseum&#10;-Typos" />
     <MESSAGE value="-Additions to Colosseum&#10;-Typos&#10;-Refactoring" />
@@ -707,7 +711,10 @@
     <MESSAGE value="-Tweeter api invokatinon debugged" />
     <MESSAGE value="-Log and queue methods debugged&#10;-Changes in gitignore" />
     <MESSAGE value="-Changes in gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Changes in gitignore" />
+    <MESSAGE value="-Changes in gitignore!!" />
+    <MESSAGE value="-Changes in gitignore!!(it just won't fkhjfdshfking work" />
+    <MESSAGE value="-Fixes in load queue" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Fixes in load queue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -730,13 +737,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/io_sama.py</url>
-          <line>123</line>
+          <line>125</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/io_sama.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="18" />
+          <line>147</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/io_sama.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -886,13 +898,6 @@
     <entry file="file://$PROJECT_DIR$/files/arpios.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -907,13 +912,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/events.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/shutil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="168">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -927,24 +936,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/shutil.py">
+    <entry file="file://$PROJECT_DIR$/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
+        <state relative-caret-position="324">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/constants.py">
+    <entry file="file://$PROJECT_DIR$/events.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="-3617">
+          <caret line="56" column="15" selection-start-line="56" selection-start-column="15" selection-end-line="56" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/io_sama.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="100" selection-start-line="100" selection-end-line="100" />
+        <state relative-caret-position="271">
+          <caret line="146" selection-start-line="146" selection-end-line="146" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -953,18 +965,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="-125">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/constants.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+        <state relative-caret-position="198">
+          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
         </state>
       </provider>
     </entry>

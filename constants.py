@@ -1,19 +1,20 @@
 IMGPREFIX = "imagen"
-IMG = "files/" + IMGPREFIX
+FILES = "files/"
+IMG = FILES + IMGPREFIX
 
-ARPIOS = "pickle_harpies"
-OBJETOS = 'piclke_weapons'
-STATUS = 'pickle_status'
-COLOSSEUM = "pickle_colosseum"
-TWEETLOG = "tweet"
+ARPIOS = FILES + "pickle_harpies"
+OBJETOS = FILES + 'piclke_weapons'
+STATUS = FILES + 'pickle_status'
+COLOSSEUM = FILES + "pickle_colosseum"
+TWEETLOG = FILES + "tweet"
 
-TOKENSFILE = "files/tokens.txt"
-WEAPONFILE = "files/objetos.txt"
-COFFEEFILE = "files/cafes.txt"
-REVIVEFILE = "files/revive.txt"
-SUICIDEFILE = "files/suicide.txt"
-CURSEFILE = "files/curse.txt"
-DRAWFILE = "files/draw.txt"
+TOKENSFILE = FILES + "tokens.txt"
+WEAPONFILE = FILES + "objetos.txt"
+COFFEEFILE = FILES + "cafes.txt"
+REVIVEFILE = FILES + "revive.txt"
+SUICIDEFILE = FILES + "suicide.txt"
+CURSEFILE = FILES + "curse.txt"
+DRAWFILE = FILES + "draw.txt"
 
 LOGDIR = "log"
 QUEUEDIR = "queue"

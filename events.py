@@ -54,7 +54,7 @@ class Assassination:
         if len(surviors) == 1:  # should be empty after the last standoff
             stats.omedetoo = True
             stats.winner = assasinpy
-        return "{:1.4f}".format(assasinpy.percKill) + " : " + "{:1.4f}".format(assasinpy.percVictim) + " " + tweet
+        return tweet
 
     def get_frequency(self):
         return self.frequency
