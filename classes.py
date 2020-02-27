@@ -3,6 +3,8 @@ import errors
 class Arpio:
     def __init__(self, name):
         self.name = name
+        self.t_handle= None
+        self.presentation=None
         self.percKill = float(0.7)
         self.percVictim = float(0.7)
         self.isAlive = True
@@ -20,6 +22,14 @@ class Arpio:
             harpy.percVictim = 1. / total_harpies
         harpies.sort(key=lambda x: x.name)
         return harpies
+
+    def __str__(self):
+        if not self.t_handle is None:
+            tostr= self.name + " (" + self.t_handle + ")"
+        else:
+            tostr= self.name
+
+        return tostr
 
     def __adjust_attribute__(self, att_name, delta):
         tmp_sum = self.__getattribute__(att_name) + delta
