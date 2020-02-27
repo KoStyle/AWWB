@@ -92,7 +92,7 @@ class OutputChan:
         if not os.path.isdir(log_path):
             os.mkdir(log_path)
 
-        tweet_file = open(log_path + TWEETPREFIX + now + TXT, "w+")
+        tweet_file = open(log_path + TWEETPREFIX + now + TXT, "w+", encoding='UTF-16')
         tweet_file.write(tweet)
         tweet_file.close()
         OutputChan.save_pickle(log_path + COLOSSEUM + now + TXT, colosseum)
@@ -147,7 +147,7 @@ class OutputChan:
         # This is a list of lists. Each sublist contains the filenames for the tweet, the image and the colosseum pickle (the last one is not used in this case)
         almighty_tweet_queue = InputKun.load_queued_tweets(directory)
         for tweet_element in almighty_tweet_queue:
-            tweet_text = open(tweet_element[0], "r").readline()
+            tweet_text = open(tweet_element[0], "r", encoding='UTF-16').readline()
             try:
                 OutputChan.tweet_image(tweet_text, tweet_element[1], live)
                 OutputChan.delete_queued_tweet(tweet_element[0], tweet_element[1])
