@@ -1,20 +1,23 @@
-import errors
+from errors import *
+
 
 class Arpio:
-    def __init__(self, name):
-        self.name = name
-        self.t_handle= None
-        self.presentation=None
+    def __init__(self, csv_data):
+        data = csv_data.split(";")
+
+        self.name = data[0]
+        self.t_handle = None if len(data) <= 1 else data[1]
+        self.presentation = None if len(data) <= 2 else data[2]
         self.percKill = float(0.7)
         self.percVictim = float(0.7)
         self.isAlive = True
         self.kills = int(0)
 
     @staticmethod
-    def harpy_factory(names):
+    def harpy_factory(csv_data):
         harpies = []
-        for name in names:
-            harpies.append(Arpio(name.strip()))
+        for csv_line in csv_data:
+            harpies.append(Arpio(csv_line.strip()))
         total_harpies = len(harpies)
 
         for harpy in harpies:
@@ -24,10 +27,10 @@ class Arpio:
         return harpies
 
     def __str__(self):
-        if not self.t_handle is None:
-            tostr= self.name + " (" + self.t_handle + ")"
+        if self.t_handle is not None:
+            tostr = self.name + " (" + self.t_handle + ")"
         else:
-            tostr= self.name
+            tostr = self.name
 
         return tostr
 
