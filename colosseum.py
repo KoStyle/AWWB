@@ -87,6 +87,16 @@ class Colosseum:
         for harpy in harpies:
             harpy.increase_attribute(att_name, share)
 
+    def get_presentations(self):
+        presentations=[]
+        
+        dorsals= random.sample(range(300), len(self.harpies))
+
+        i=0
+        for harpy in self.harpies:
+            presentations.append("Con el dorsal {} entra {}: \"{} \"".format(dorsals[i], harpy, harpy.presentation))
+            i+=1
+        return presentations
 
     #TODO add background to image using "drawBitmap". I could make a watermark bitmap with the same dimesions
     def generateStatusImage(self, img_str):
