@@ -4,7 +4,7 @@ import random
 import sys
 
 from colosseum import Colosseum
-from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK
+from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK, FILES
 from io_sama import InputKun, OutputChan
 
 
@@ -46,7 +46,7 @@ from io_sama import InputKun, OutputChan
 
 
 def stateful_call(tweet_for_real=True):
-    colosseum = InputKun.load_pickle(COLOSSEUM + PICK)
+    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
     if colosseum is None:
         colosseum = Colosseum()
 
@@ -57,18 +57,20 @@ def stateful_call(tweet_for_real=True):
         OutputChan.log_tweet(LOGDIR, tweet, ruta_img, colosseum)
         OutputChan.queue_tweet(QUEUEDIR, tweet, ruta_img, colosseum)
         OutputChan.process_queue(QUEUEDIR, tweet_for_real)
-        # TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)
+        OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
 
+        # TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)
         if colosseum.is_over():
             # TODO Congratulations message (method in colosseum)
-            colosseum.congratulations()
-
-        OutputChan.save_pickle(COLOSSEUM + PICK, colosseum)
+            print(str(colosseum.stats.winner) + " ha ganado")
+            # colosseum.congratulations()
+    else:
+        print("Owarida")
 
 
 def stateful_dequeue():
     colosseum = InputKun.load_pickle(COLOSSEUM)
-    if colosseum == None:
+    if colosseum is None:
         raise Exception("Wrong pickle")
     OutputChan.process_queue(QUEUEDIR)
     # TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)

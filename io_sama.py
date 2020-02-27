@@ -1,14 +1,14 @@
 import datetime
+import ntpath
 import os
 import pickle
 import re
-import ntpath
 from os.path import isfile, join
 from shutil import copyfile
 
 from twython import Twython, TwythonError
 
-from constants import ACCESS_TOKENS_DIC, TXT, TWEETLOG, COLOSSEUM, IMG, PNG, TOKENSFILE, QUEUEDIR, IMGPREFIX
+from constants import ACCESS_TOKENS_DIC, TXT, COLOSSEUM, PNG, TOKENSFILE, IMGPREFIX, TWEETPREFIX
 
 
 class InputKun:
@@ -17,9 +17,9 @@ class InputKun:
     def read_file(file):
         lista = []
         try:
-            f = open(file, 'r', encoding='latin1')
+            f = open(file, 'r', encoding='UTF-16')
         except FileNotFoundError:
-            f = open(file, 'w+', encoding='latin1')
+            f = open(file, 'w+', encoding='UTF-16')
         line = f.readline()
         while line:
             lista.append(line.strip())
@@ -33,7 +33,7 @@ class InputKun:
 
     @staticmethod
     def read_tokens(file):
-        f = open(file, 'r', encoding='latin1')
+        f = open(file, 'r', encoding='UTF-16')
         line = f.readline()
         while line:
             tokenized = line.split('=')
@@ -68,9 +68,9 @@ class InputKun:
         for tmp_tweet in qtweets:
             single_tweet = []
             date_extension = regex.match(tmp_tweet).group(1)
-            if os.path.isfile(directory + "/" + IMGPREFIX + date_extension + PNG):
-                single_tweet.append(directory + "/" + tmp_tweet)
-                single_tweet.append(directory + "/" + IMGPREFIX + date_extension + PNG)
+            if os.path.isfile(directory + IMGPREFIX + date_extension + PNG):
+                single_tweet.append(directory + tmp_tweet)
+                single_tweet.append(directory + IMGPREFIX + date_extension + PNG)
                 sweet_tweet_info.append(single_tweet)
 
         return sweet_tweet_info
@@ -92,11 +92,11 @@ class OutputChan:
         if not os.path.isdir(log_path):
             os.mkdir(log_path)
 
-        tweet_file = open(log_path + "/" + TWEETLOG + now + TXT, "w+")
+        tweet_file = open(log_path + TWEETPREFIX + now + TXT, "w+")
         tweet_file.write(tweet)
         tweet_file.close()
-        OutputChan.save_pickle(log_path + "/" + COLOSSEUM + now + TXT, colosseum)
-        copyfile(img_path, log_path + "/" + img_filename.split(".")[0] + now + PNG)
+        OutputChan.save_pickle(log_path + COLOSSEUM + now + TXT, colosseum)
+        copyfile(img_path, log_path + img_filename.split(".")[0] + now + PNG)
 
     @staticmethod
     def queue_tweet(queue_path, tweet, img_path, colosseum):
@@ -104,17 +104,19 @@ class OutputChan:
 
     @staticmethod
     def tweet_image(tweet, image_path, live=True):
-        if not live:
-            return
 
         InputKun.read_tokens(TOKENSFILE)
         atd = ACCESS_TOKENS_DIC
 
         try:
-            api = Twython(atd.CONSUMER_KEY, atd.CONSUMER_SECRET, atd.ACCESS_KEY, atd.ACCESS_SECRET)
+            api = Twython(atd['CONSUMER_KEY'], atd['CONSUMER_SECRET'], atd['ACCESS_KEY'], atd['ACCESS_SECRET'])
             photo = open(image_path, 'rb')
             image_ids = api.upload_media(media=photo)
-            api.update_status(status=tweet, media_ids=image_ids['media_id'])
+            if not live:
+                #Only for testing
+                print(tweet)
+            else:
+                api.update_status(status=tweet, media_ids=image_ids['media_id'])
         except TwythonError:
             # OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
             raise TwythonError("Failed to tweet. Queued tweet")

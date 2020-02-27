@@ -1,13 +1,14 @@
 IMGPREFIX = "imagen"
+TWEETPREFIX= "tweet"
 FILES = "files/"
+LOGDIR = "log/"
+QUEUEDIR = "queue/"
+
 IMG = FILES + IMGPREFIX
+COLOSSEUM = "pickle_colosseum"
 
-ARPIOS = FILES + "pickle_harpies"
-OBJETOS = FILES + 'piclke_weapons'
-STATUS = FILES + 'pickle_status'
-COLOSSEUM = FILES + "pickle_colosseum"
-TWEETLOG = FILES + "tweet"
 
+HARPIESFILE = FILES + "arpios.txt"
 TOKENSFILE = FILES + "tokens.txt"
 WEAPONFILE = FILES + "objetos.txt"
 COFFEEFILE = FILES + "cafes.txt"
@@ -16,8 +17,6 @@ SUICIDEFILE = FILES + "suicide.txt"
 CURSEFILE = FILES + "curse.txt"
 DRAWFILE = FILES + "draw.txt"
 
-LOGDIR = "log"
-QUEUEDIR = "queue"
 
 TXT = '.txt'
 PNG = '.png'

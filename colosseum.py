@@ -4,7 +4,7 @@ import random
 from PIL import Image, ImageDraw, ImageFont
 
 from classes import Status, Arpio
-from constants import IMG, PNG, FONT
+from constants import IMG, PNG, FONT, HARPIESFILE
 from events import Assassination, Coffee, Suicide, Revive, Curse, Draw
 from io_sama import InputKun
 from pickers import KillerPicker, VictimPicker, RandomPicker
@@ -14,7 +14,7 @@ class Colosseum:
     def __init__(self):
 
         #TODO change this to constants
-        self.harpies = Arpio.harpy_factory(InputKun.read_file('files/arpios.txt'))
+        self.harpies = Arpio.harpy_factory(InputKun.read_file(HARPIESFILE))
         self.stats = Status()
         self.stats.alive = len(self.harpies)
 
