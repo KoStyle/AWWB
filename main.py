@@ -1,6 +1,8 @@
 import datetime
 import random
 
+import sys
+
 from colosseum import Colosseum
 from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG
 from io_sama import InputKun, OutputChan
@@ -68,3 +70,19 @@ def stateful_dequeue():
         raise Exception("Wrong pickle")
     OutputChan.process_queue(QUEUEDIR)
     # TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)
+
+
+def test_tweet_api():
+    OutputChan.tweet_text("*...generating minimal aliveness scenarios**[2356E]", True)
+
+
+if __name__ == "__main__":
+    print(sys.argv[1])
+
+    mode = sys.argv[1]
+    if mode == "test_tweet":
+        test_tweet_api()
+    elif mode == "test_state":
+        stateful_call(False)
+    else:
+        print("I did nuthing")

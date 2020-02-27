@@ -36,7 +36,7 @@ class InputKun:
         line = f.readline()
         while line:
             tokenized = line.split('=')
-            if ACCESS_TOKENS_DIC.get(tokenized[0].strip()) is None and len(tokenized) == 2:
+            if ACCESS_TOKENS_DIC.get(tokenized[0].strip()) is not None and len(tokenized) == 2:
                 ACCESS_TOKENS_DIC[tokenized[0].strip()] = tokenized[1].strip()
             line = f.readline()
         return
@@ -119,9 +119,10 @@ class OutputChan:
         InputKun.read_tokens(TOKENSFILE)
         atd = ACCESS_TOKENS_DIC
         try:
-            api = Twython(atd.CONSUMER_KEY, atd.CONSUMER_SECRET, atd.ACCESS_KEY, atd.ACCESS_SECRET)
+            api = Twython(atd['CONSUMER_KEY'], atd['CONSUMER_SECRET'], atd['ACCESS_KEY'], atd['ACCESS_SECRET'])
             api.update_status(status=tweet)
-        except TwythonError:
+        except TwythonError as e:
+            print(str(e))
             # OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
             raise TwythonError("Failed to tweet. Queued tweet")
 

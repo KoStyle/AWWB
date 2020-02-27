@@ -1,6 +1,7 @@
 import random
 
 from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE, DRAWFILE
+from errors import EventError
 from io_sama import InputKun
 
 
