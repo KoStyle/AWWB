@@ -77,7 +77,29 @@ def stateful_dequeue():
 
 
 def test_tweet_api():
-    OutputChan.tweet_text("*...generating minimal aliveness scenarios**[2356E]", True)
+    OutputChan.tweet_text(
+        "Buenas noches a todos. En caso de emergencia, recuerden: Todas las salidas han sido selladas. Seguiremos informando [BIP BOOP]",
+        True)
+
+
+def test_tweet_api_img():
+    OutputChan.tweet_image("Getting ready for you <3", "files/terminator.jpg", True)
+
+
+def presentation():
+    live = False
+    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
+    if colosseum is None:
+        colosseum = Colosseum()
+
+    presentations = colosseum.get_presentations()
+
+    OutputChan.tweet_text(
+        "Hoy empieza la batalla por la supervivencia. Ya sabéis como funciona. Cada día a las 12.00 me encargaré de "
+        "actualizaros. Pero antes de empezar, demos la bienvenida a los participantes!!", live)
+
+    for present in presentations:
+        OutputChan.tweet_text(present, live)
 
 
 if __name__ == "__main__":
@@ -86,6 +108,10 @@ if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "test_tweet":
         test_tweet_api()
+    elif mode == "test_image":
+        test_tweet_api_img()
+    elif mode == "test_intro":
+        presentation()
     elif mode == "test_state":
         stateful_call(False)
     else:

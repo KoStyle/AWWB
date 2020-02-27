@@ -94,7 +94,7 @@ class Colosseum:
 
         i=0
         for harpy in self.harpies:
-            presentations.append("Con el dorsal {} entra {}: \"{} \"".format(dorsals[i], harpy, harpy.presentation))
+            presentations.append("Con el dorsal {} entra {}: \"{}\"".format(dorsals[i], harpy, harpy.presentation))
             i+=1
         return presentations
 

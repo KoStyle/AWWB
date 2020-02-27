@@ -5,9 +5,9 @@ class Arpio:
     def __init__(self, csv_data):
         data = csv_data.split(";")
 
-        self.name = data[0]
-        self.t_handle = None if len(data) <= 1 else data[1]
-        self.presentation = None if len(data) <= 2 else data[2]
+        self.name = data[0].strip()
+        self.t_handle = None if len(data) <= 1 or not data[1] else data[1].strip()
+        self.presentation = None if len(data) <= 2 or not data[2] else data[2].strip()
         self.percKill = float(0.7)
         self.percVictim = float(0.7)
         self.isAlive = True

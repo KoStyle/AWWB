@@ -8,6 +8,7 @@ from shutil import copyfile
 
 from twython import Twython, TwythonError
 
+import util
 from constants import ACCESS_TOKENS_DIC, TXT, COLOSSEUM, PNG, TOKENSFILE, IMGPREFIX, TWEETPREFIX
 
 
@@ -103,7 +104,7 @@ class OutputChan:
         OutputChan.log_tweet(queue_path, tweet, img_path, colosseum)
 
     @staticmethod
-    def tweet_image(tweet, image_path, live=True):
+    def tweet_image(tweet, image_path, live=False):
 
         InputKun.read_tokens(TOKENSFILE)
         atd = ACCESS_TOKENS_DIC
@@ -113,23 +114,34 @@ class OutputChan:
             photo = open(image_path, 'rb')
             image_ids = api.upload_media(media=photo)
             if not live:
-                #Only for testing
+                # Only for testing
                 print(tweet)
             else:
                 api.update_status(status=tweet, media_ids=image_ids['media_id'])
         except TwythonError:
-            # OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
             raise TwythonError("Failed to tweet. Queued tweet")
 
     @staticmethod
-    def tweet_text(tweet, live=True):
-        if not live:
-            return
+    def tweet_text(tweet, live=False):
+
         InputKun.read_tokens(TOKENSFILE)
         atd = ACCESS_TOKENS_DIC
         try:
             api = Twython(atd['CONSUMER_KEY'], atd['CONSUMER_SECRET'], atd['ACCESS_KEY'], atd['ACCESS_SECRET'])
-            api.update_status(status=tweet)
+            if not live:
+                if len(tweet) > 270:
+                    halves = util.split_tweet(tweet)
+                    print(halves[0])
+                    print(halves[1])
+                else:
+                    print(tweet)
+            else:
+                if len(tweet) > 270:
+                    halves = util.split_tweet(tweet)
+                    api.update_status(status=halves[0])
+                    api.update_status(status=halves[1])
+                else:
+                    api.update_status(status=tweet)
         except TwythonError as e:
             print(str(e))
             # OutputChan.queue_tweet(QUEUEDIR, tweet, image_path, colosseum_str)
