@@ -2,6 +2,7 @@ venv
 files
 log
 queue
+.idea/
 *.rsuser
 *.suo
 *.user

@@ -4,9 +4,6 @@
     <list default="true" id="1018755a-20e7-4a80-a58f-ffb3e9b5a009" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/io_sama.py" beforeDir="false" afterPath="$PROJECT_DIR$/io_sama.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+            <state relative-caret-position="72">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -580,7 +577,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582834738699</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="-Log and queue methods debugged&#10;-Changes in gitignore">
+      <created>1582837439363</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1582837439363</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TodoView">
@@ -591,7 +595,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" weight="0.32995737" />
@@ -671,7 +674,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
-    <MESSAGE value="Minor stuff" />
     <MESSAGE value="Implemented Revive event" />
     <MESSAGE value="Implemented Curse event (it doubles the victim percentage of the course's target. The caster steals half of the killing percentage" />
     <MESSAGE value="Annotations and ideas" />
@@ -696,7 +698,8 @@
     <MESSAGE value="-Updated Harpy innit to contemplate new fields" />
     <MESSAGE value="-Minor fixes&#10;-Differentiated in two methods. Tweet image (for normal tournament operation) and tweet text (for presentations or other propourses)" />
     <MESSAGE value="-Tweeter api invokatinon debugged" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Tweeter api invokatinon debugged" />
+    <MESSAGE value="-Log and queue methods debugged&#10;-Changes in gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Log and queue methods debugged&#10;-Changes in gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -952,8 +955,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        <state relative-caret-position="72">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
         </state>
       </provider>
     </entry>
