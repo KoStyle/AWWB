@@ -38,3 +38,5 @@ def sensoo_wa_kawatta():
     colosseum=None
     try:
         InputKun.load_pickle(COLOSSEUM)
+    except:
+        return
