@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1018755a-20e7-4a80-a58f-ffb3e9b5a009" name="Default Changelist" comment="">
+    <list default="true" id="1018755a-20e7-4a80-a58f-ffb3e9b5a009" name="Default Changelist" comment="-Changes in gitignore">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -31,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+            <state relative-caret-position="90">
+              <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -584,7 +584,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582837439363</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="-Changes in gitignore">
+      <created>1582837464826</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1582837464826</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -595,6 +602,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" weight="0.32995737" />
@@ -674,7 +682,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
-    <MESSAGE value="Implemented Revive event" />
     <MESSAGE value="Implemented Curse event (it doubles the victim percentage of the course's target. The caster steals half of the killing percentage" />
     <MESSAGE value="Annotations and ideas" />
     <MESSAGE value="Modifications on the revive event (redistribution of all kill probabilities (might lose a bit of precision)&#10;&#10;Fixes in Curse event" />
@@ -699,7 +706,8 @@
     <MESSAGE value="-Minor fixes&#10;-Differentiated in two methods. Tweet image (for normal tournament operation) and tweet text (for presentations or other propourses)" />
     <MESSAGE value="-Tweeter api invokatinon debugged" />
     <MESSAGE value="-Log and queue methods debugged&#10;-Changes in gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="-Log and queue methods debugged&#10;-Changes in gitignore" />
+    <MESSAGE value="-Changes in gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Changes in gitignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -955,8 +963,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+        <state relative-caret-position="90">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
