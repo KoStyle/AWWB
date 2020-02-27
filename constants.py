@@ -1,4 +1,5 @@
-IMG = "files/imagen"
+IMGPREFIX = "imagen"
+IMG = "files/" + IMGPREFIX
 
 ARPIOS = "pickle_harpies"
 OBJETOS = 'piclke_weapons'

@@ -8,7 +8,7 @@ from shutil import copyfile
 
 from twython import Twython, TwythonError
 
-from constants import ACCESS_TOKENS_DIC, TXT, TWEETLOG, COLOSSEUM, IMG, PNG, TOKENSFILE, QUEUEDIR
+from constants import ACCESS_TOKENS_DIC, TXT, TWEETLOG, COLOSSEUM, IMG, PNG, TOKENSFILE, QUEUEDIR, IMGPREFIX
 
 
 class InputKun:
@@ -52,24 +52,25 @@ class InputKun:
         f.close()
         return thing
 
+    #TODO v3: create a tweet bean that keeps all. Binary img, colloseum reference and tweet text. All in a pickle.
     @staticmethod
     def load_queued_tweets(directory):
         if not os.path.isdir(directory):
             return ""
-        regex = re.compile("^tweet([0-9]{8})\.txt$")
+        regex = re.compile("^tweet([0-9]{12})\.txt$")
         queue = InputKun.list_files_in_dir(directory)
         if len(queue) < 1:
             return ""
 
         sweet_tweet_info = []
-        qtweets = [file for file in queue if regex.match(file.name)]
+        qtweets = [file for file in queue if regex.match(file)]
 
         for tmp_tweet in qtweets:
             single_tweet = []
-            date_extension = regex.match(tmp_tweet.name).group(1)
-            if os.path.isfile(directory + "/" + IMG + date_extension + PNG):
-                single_tweet.append(tmp_tweet.name)
-                single_tweet.append(IMG + date_extension + PNG)
+            date_extension = regex.match(tmp_tweet).group(1)
+            if os.path.isfile(directory + "/" + IMGPREFIX + date_extension + PNG):
+                single_tweet.append(tmp_tweet)
+                single_tweet.append(IMGPREFIX + date_extension + PNG)
                 sweet_tweet_info.append(single_tweet)
 
         return sweet_tweet_info
