@@ -20,5 +20,6 @@ QUEUEDIR = "queue"
 TXT = '.txt'
 PNG = '.png'
 FONT = "files/font.ttf"
+PICK = ".pck"
 NA = 'NA'
 ACCESS_TOKENS_DIC = {'CONSUMER_KEY': NA, 'CONSUMER_SECRET': NA, 'ACCESS_KEY': NA, 'ACCESS_SECRET': NA}

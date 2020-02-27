@@ -4,7 +4,7 @@ import random
 import sys
 
 from colosseum import Colosseum
-from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG
+from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK
 from io_sama import InputKun, OutputChan
 
 
@@ -46,7 +46,7 @@ from io_sama import InputKun, OutputChan
 
 
 def stateful_call(tweet_for_real=True):
-    colosseum = InputKun.load_pickle(COLOSSEUM)
+    colosseum = InputKun.load_pickle(COLOSSEUM + PICK)
     if colosseum is None:
         colosseum = Colosseum()
 
@@ -62,6 +62,8 @@ def stateful_call(tweet_for_real=True):
         if colosseum.is_over():
             # TODO Congratulations message (method in colosseum)
             colosseum.congratulations()
+
+        OutputChan.save_pickle(COLOSSEUM + PICK, colosseum)
 
 
 def stateful_dequeue():

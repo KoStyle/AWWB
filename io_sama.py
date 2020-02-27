@@ -2,6 +2,7 @@ import datetime
 import os
 import pickle
 import re
+import ntpath
 from os.path import isfile, join
 from shutil import copyfile
 
@@ -43,7 +44,10 @@ class InputKun:
 
     @staticmethod
     def load_pickle(file_str):
-        f = open(file_str, 'rb')
+        try:
+            f = open(file_str, 'rb')
+        except FileNotFoundError:
+            return None
         thing = pickle.load(f)
         f.close()
         return thing
@@ -83,13 +87,14 @@ class OutputChan:
     @staticmethod
     def log_tweet(log_path, tweet, img_path, colosseum):
         now = datetime.datetime.now().strftime('%Y%m%d%H%M')
+        img_filename = ntpath.basename(img_path)
         if not os.path.isdir(log_path):
             os.mkdir(log_path)
-        tweet_file = open(log_path + "/" + TWEETLOG + now + TXT, "w")
-        tweet_file.write(tweet)
 
-        OutputChan.save_pickle(COLOSSEUM + now + TXT, colosseum)
-        copyfile(img_path, log_path + "/" + IMG + now + PNG)
+        tweet_file = open(log_path + "/" + TWEETLOG + now + TXT, "w+")
+        tweet_file.write(tweet)
+        OutputChan.save_pickle(log_path + "/" + COLOSSEUM + now + TXT, colosseum)
+        copyfile(img_path, log_path + "/" + img_filename.split(".")[0] + now + PNG)
 
     @staticmethod
     def queue_tweet(queue_path, tweet, img_path, colosseum):
