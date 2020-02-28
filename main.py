@@ -62,10 +62,12 @@ def stateful_call(tweet_for_real=True):
         # TODO Make this func so it sends all tweets in the queue directory (if successfully sent, deletes crom queue)
         if colosseum.is_over():
             # TODO Congratulations message (method in colosseum)
-            print(str(colosseum.stats.winner) + " ha ganado")
+            tweet = colosseum.omedetoo()
+            OutputChan.tweet_text(tweet, tweet_for_real)
             # colosseum.congratulations()
     else:
         print("Owarida")
+
 
 
 def stateful_dequeue():

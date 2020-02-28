@@ -6,14 +6,14 @@ from PIL import Image, ImageDraw, ImageFont
 from classes import Status, Arpio
 from constants import IMG, PNG, FONT, HARPIESFILE
 from events import Assassination, Coffee, Suicide, Revive, Curse, Draw
-from io_sama import InputKun
+from io_sama import InputKun, OutputChan
 from pickers import KillerPicker, VictimPicker, RandomPicker
 
 
 class Colosseum:
     def __init__(self):
 
-        #TODO change this to constants
+        # TODO change this to constants
         self.harpies = Arpio.harpy_factory(InputKun.read_file(HARPIESFILE))
         self.stats = Status()
         self.stats.alive = len(self.harpies)
@@ -88,17 +88,22 @@ class Colosseum:
             harpy.increase_attribute(att_name, share)
 
     def get_presentations(self):
-        presentations=[]
-        
-        dorsals= random.sample(range(300), len(self.harpies))
+        presentations = []
 
-        i=0
+        dorsals = random.sample(range(300), len(self.harpies))
+
+        i = 0
         for harpy in self.harpies:
             presentations.append("Con el dorsal {} entra {}: \"{}\"".format(dorsals[i], harpy, harpy.presentation))
-            i+=1
+            i += 1
         return presentations
 
-    #TODO add background to image using "drawBitmap". I could make a watermark bitmap with the same dimesions
+    def omedetoo(self):
+        tweet = "Despues de todo lo que hemos vivido, solo queda una persona en pie, sobre una pila de cadaveres... Enhorabuena {}! Distruta de esta victoria desprovista de valor. {} #theEnd".format(
+            self.stats.winner.name, self.stats.winner.t_handle if self.stats.winner.t_handle else "")
+        return tweet
+
+    # TODO add background to image using "drawBitmap". I could make a watermark bitmap with the same dimesions
     def generateStatusImage(self, img_str):
         # We open a template image and get its dimensions
         pic = Image.open(IMG + PNG)
@@ -128,4 +133,3 @@ class Colosseum:
                 xl, yl = font.getsize(self.harpies[i].name)
                 draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
         pic.save(IMG + PNG)
-
