@@ -1,6 +1,3 @@
-import datetime
-import random
-
 import sys
 from time import sleep
 
@@ -9,17 +6,9 @@ from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK, FILES
 from io_sama import InputKun, OutputChan
 
 
-# TODO v2 ideas:
-# Events structure (Done)
-# Kills (Done)
-# Coffees (Done)
-# Suicides (Done)
-# Draws (Done)
-# Revives (Done)
-# Curses (Done)
-# Event randomization (Done)
 # TODO v3 ideas:
 # Kill by popular demand (events that wait for user interaction. needs from IO_Sama)
+# Log and queue as pickle class instead of folders
 # Rewrite access to the print name of Arpies
 # Love affairs (possibility of magnetismn between player (makes them more likely to kill eachother))
 # Support for mentions
@@ -109,7 +98,7 @@ def presentation(live=False):
 
     for present in presentations:
         OutputChan.tweet_text(present, live)
-        sleep(120)
+        sleep(1)
 
 
 if __name__ == "__main__":

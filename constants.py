@@ -1,12 +1,11 @@
 IMGPREFIX = "imagen"
-TWEETPREFIX= "tweet"
+TWEETPREFIX = "tweet"
 FILES = "files/"
 LOGDIR = "log/"
 QUEUEDIR = "queue/"
 
 IMG = FILES + IMGPREFIX
 COLOSSEUM = "pickle_colosseum"
-
 
 HARPIESFILE = FILES + "arpios.txt"
 TOKENSFILE = FILES + "tokens.txt"
@@ -16,7 +15,6 @@ REVIVEFILE = FILES + "revive.txt"
 SUICIDEFILE = FILES + "suicide.txt"
 CURSEFILE = FILES + "curse.txt"
 DRAWFILE = FILES + "draw.txt"
-
 
 TXT = '.txt'
 PNG = '.png'

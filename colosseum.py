@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 from classes import Status, Arpio
 from constants import IMG, PNG, FONT, HARPIESFILE
 from events import Assassination, Coffee, Suicide, Revive, Curse, Draw
-from io_sama import InputKun, OutputChan
+from io_sama import InputKun
 from pickers import KillerPicker, VictimPicker, RandomPicker
 
 

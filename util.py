@@ -1,6 +1,5 @@
-
 def split_tweet(str_tweet):
-    halves=[]
+    halves = []
     l = str_tweet.split()
 
     s1 = ' '.join(l[:len(l) // 2]) + " [1/2]"

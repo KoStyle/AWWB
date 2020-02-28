@@ -39,7 +39,7 @@ class Assassination:
         else:
             motif = 'con la vara de la aleatoriedad'
 
-        tweet +='{} ha matado a {} {}.'.format(assasinpy, victimpy, motif)
+        tweet += '{} ha matado a {} {}.'.format(assasinpy, victimpy, motif)
         victimpy.isAlive = False
 
         # Transfer of stats
@@ -125,7 +125,7 @@ class Suicide:
     flavour_file = SUICIDEFILE
 
     def __init__(self, frequency, col, killer_picker):
-        if killer_picker is None  or col is None:
+        if killer_picker is None or col is None:
             raise EventError("Init error: Null parameters passed to the constructor method")
 
         self.frequency = frequency if not frequency is None else 1
@@ -289,7 +289,7 @@ class Draw:
 
         if len(self.draws) < 1:
             self.draws.append(". Alto! Parece que no ha muerto! Con algo de suerte vivirá para luchar un día más")
-        tweet = "{} le ha disparado y derribado a {}{}".format(killer, victim,random.choice(self.draws))
+        tweet = "{} le ha disparado y derribado a {}{}".format(killer, victim, random.choice(self.draws))
 
         return tweet
 

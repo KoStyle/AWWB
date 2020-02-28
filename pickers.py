@@ -1,6 +1,7 @@
 import random
 
-#TODO Fusion KillerPicker and VictimPicker into a generic StatPicker using __getAttrib__
+
+# TODO Fusion KillerPicker and VictimPicker into a generic StatPicker using __getAttrib__
 class KillerPicker:
 
     def pick(self, harpies):
@@ -54,8 +55,7 @@ class RandomPicker:
         return harpy
 
 
-
-#Deprecated: All pickers MUST remove the picked element from the original list
+# Deprecated: All pickers MUST remove the picked element from the original list
 class RandomPickerNoDelete:
 
     def pick(selfs, harpies):
