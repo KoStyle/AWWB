@@ -103,10 +103,6 @@ class Colosseum:
             self.stats.winner.name, self.stats.winner.t_handle if self.stats.winner.t_handle else "")
         return tweet
 
-    def refresh_flavours(self):
-        for event in self.events:
-            event.refresh()
-
     # TODO add background to image using "drawBitmap". I could make a watermark bitmap with the same dimesions
     def generateStatusImage(self, img_str):
         # We open a template image and get its dimensions
