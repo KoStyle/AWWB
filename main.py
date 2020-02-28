@@ -86,11 +86,11 @@ def test_tweet_api_img():
     OutputChan.tweet_image("Getting ready for you <3", "files/terminator.jpg", True)
 
 
-def presentation():
-    live = False
+def presentation(live=False):
     colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
     if colosseum is None:
         colosseum = Colosseum()
+        OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
 
     presentations = colosseum.get_presentations()
 
@@ -114,5 +114,9 @@ if __name__ == "__main__":
         presentation()
     elif mode == "test_state":
         stateful_call(False)
+    elif mode == "run_state":
+        stateful_call(True)
+    elif mode == "run_intro":
+        presentation(True)
     else:
         print("I did nuthing")

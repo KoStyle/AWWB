@@ -36,7 +36,7 @@ class Assassination:
         else:
             motif = 'con la vara de la aleatoriedad'
 
-        tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
+        tweet +='{} ha matado a {} {}.'.format(assasinpy, victimpy, motif)
         victimpy.isAlive = False
 
         # Transfer of stats
@@ -85,11 +85,11 @@ class Coffee:
 
         for i in range(0, len(drinkers)):
             if i == len(drinkers) - 1:
-                tweet += drinkers[i].name + " "
+                tweet += str(drinkers[i]) + " "
             elif i == len(drinkers) - 2:
-                tweet += drinkers[i].name + " y "
+                tweet += str(drinkers[i]) + " y "
             else:
-                tweet += drinkers[i].name + ", "
+                tweet += str(drinkers[i]) + ", "
 
         if len(self.coffees) < 1:
             self.coffees.append("ido a tomar un [404: edible item missing]")
@@ -149,7 +149,7 @@ class Suicide:
 
         if len(self.suicides) < 1:
             self.suicides.append("inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet")
-        tweet = suicidalpy.name + " " + random.choice(self.suicides)
+        tweet = "{} {}".format(suicidalpy, random.choice(self.suicides))
 
         return tweet
 
@@ -200,7 +200,7 @@ class Revive:
 
         if len(self.revives) < 1:
             self.revives.append(". Alabado sea Gilgamesh.")
-        tweet = shamanpy.name + " ha revivido a " + corpsepy.name + random.choice(self.revives)
+        tweet = "{} ha revivido a {}{}".format(shamanpy, corpsepy, random.choice(self.revives))
 
         return tweet
 
@@ -238,7 +238,7 @@ class Curse:
 
         if len(self.curses) < 1:
             self.curses.append(". Se ha convertido en un imán para el peligro")
-        tweet = shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + random.choice(self.curses)
+        tweet = "{} le ha lanzado una maldición a {}{}".format(shamanpy, acursedpy, random.choice(self.curses))
 
         return tweet
 
@@ -271,7 +271,7 @@ class Draw:
 
         if len(self.draws) < 1:
             self.draws.append(". Alto! Parece que no ha muerto! Con algo de suerte vivirá para luchar un día más")
-        tweet = killer.name + " le ha disparado y derribado a " + victim.name + random.choice(self.draws)
+        tweet = "{} le ha disparado y derribado a {}{}".format(killer, victim,random.choice(self.draws))
 
         return tweet
 
