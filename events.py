@@ -21,6 +21,9 @@ class Assassination:
         self.victimPicker = victim_picker
         self.weapons = InputKun.read_file(self.flavour_file)
 
+    def refresh(self):
+        self.weapons = InputKun.read_file(self.flavour_file)
+
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo:
@@ -72,6 +75,9 @@ class Coffee:
         self.curretTweet = ""
         self.colosseum = col
         self.picker = picker
+        self.coffees = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
         self.coffees = InputKun.read_file(self.flavour_file)
 
     def bang(self):
@@ -127,6 +133,9 @@ class Suicide:
         self.killerPicker = killer_picker
         self.suicides = InputKun.read_file(self.flavour_file)
 
+    def refresh(self):
+        self.suicides = InputKun.read_file(self.flavour_file)
+
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo:
@@ -168,6 +177,9 @@ class Revive:
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.corpsePicker = corpse_picker
+        self.revives = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
         self.revives = InputKun.read_file(self.flavour_file)
 
     def bang(self):
@@ -221,6 +233,9 @@ class Curse:
         self.cursedPicker = cursed_picker
         self.curses = InputKun.read_file(self.flavour_file)
 
+    def refresh(self):
+        self.curses = InputKun.read_file(self.flavour_file)
+
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo or stats.alive < 2:
@@ -257,6 +272,9 @@ class Draw:
         self.colosseum = col
         self.killer_picker = killer_picker
         self.victim_picker = victim_picker
+        self.draws = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
         self.draws = InputKun.read_file(self.flavour_file)
 
     def bang(self):

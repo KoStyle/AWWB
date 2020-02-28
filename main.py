@@ -2,6 +2,7 @@ import datetime
 import random
 
 import sys
+from time import sleep
 
 from colosseum import Colosseum
 from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK, FILES
@@ -69,7 +70,6 @@ def stateful_call(tweet_for_real=True):
         print("Owarida")
 
 
-
 def stateful_dequeue():
     colosseum = InputKun.load_pickle(COLOSSEUM)
     if colosseum is None:
@@ -88,6 +88,13 @@ def test_tweet_api_img():
     OutputChan.tweet_image("Getting ready for you <3", "files/terminator.jpg", True)
 
 
+def reload_files():
+    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
+    if colosseum is None:
+        colosseum = Colosseum()
+    colosseum.refresh_flavours()
+
+
 def presentation(live=False):
     colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
     if colosseum is None:
@@ -102,6 +109,7 @@ def presentation(live=False):
 
     for present in presentations:
         OutputChan.tweet_text(present, live)
+        sleep(120)
 
 
 if __name__ == "__main__":
@@ -120,5 +128,7 @@ if __name__ == "__main__":
         stateful_call(True)
     elif mode == "run_intro":
         presentation(True)
+    elif mode == "reload_files":
+        reload_files()
     else:
         print("I did nuthing")
