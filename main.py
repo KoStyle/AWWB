@@ -104,7 +104,7 @@ def presentation(live=False):
     presentations = colosseum.get_presentations()
 
     OutputChan.tweet_text(
-        "Hoy empieza la batalla por la supervivencia. Ya sabéis como funciona. Cada día a las 12.00 me encargaré de "
+        "Hoy empieza la batalla por la supervivencia. Ya sabéis como funciona. Cada día a las 12:00 me encargaré de "
         "actualizaros. Pero antes de empezar, demos la bienvenida a los participantes!!", live)
 
     for present in presentations:
