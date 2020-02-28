@@ -1,9 +1,12 @@
 import random
 
 
+# TODO Fusion KillerPicker and VictimPicker into a generic StatPicker using __getAttrib__
 class KillerPicker:
 
     def pick(self, harpies):
+        if harpies is None:
+            raise PickerError("Argument error: No harpies received")
         threshold = random.random()
         random.shuffle(harpies)
         remainingPercKiller = sum(c.percKill for c in harpies)
@@ -23,6 +26,8 @@ class KillerPicker:
 class VictimPicker:
 
     def pick(self, harpies):
+        if harpies is None:
+            raise PickerError("Argument error: No harpies received")
         threshold = random.random()
         random.shuffle(harpies)
         remainingPercVictim = sum(c.percVictim for c in harpies)
@@ -42,17 +47,20 @@ class VictimPicker:
 class RandomPicker:
 
     def pick(self, harpies):
+        if harpies is None:
+            raise PickerError("Argument error: No harpies received")
         random.shuffle(harpies)
         harpy = random.choice(harpies)
         harpies.remove(harpy)
         return harpy
 
 
-
-#Deprecated: All pickers MUST remove the picked element from the original list
+# Deprecated: All pickers MUST remove the picked element from the original list
 class RandomPickerNoDelete:
 
     def pick(selfs, harpies):
+        if harpies is None:
+            raise PickerError("Argument error: No harpies received")
         random.shuffle(harpies)
         harpy = random.choice(harpies)
         return harpy

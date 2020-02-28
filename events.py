@@ -1,19 +1,27 @@
 import random
 
-from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE
+from constants import WEAPONFILE, COFFEEFILE, SUICIDEFILE, CURSEFILE, REVIVEFILE, DRAWFILE
+from errors import EventError
 from io_sama import InputKun
 
 
+# TODO create a parent event class and move getFrequency there and some attributes (maybe get rid of get frequency altogheter
 class Assassination:
     flavour_file = WEAPONFILE
 
     def __init__(self, frequency, col, killer_picker, victim_picker):
-        self.frequency = frequency
+        if killer_picker is None or victim_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.lastTweet = ""
         self.curretTweet = ""
         self.colosseum = col
         self.killerPicker = killer_picker
         self.victimPicker = victim_picker
+        self.weapons = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
         self.weapons = InputKun.read_file(self.flavour_file)
 
     def bang(self):
@@ -31,7 +39,7 @@ class Assassination:
         else:
             motif = 'con la vara de la aleatoriedad'
 
-        tweet += assasinpy.name + ' ha matado a ' + victimpy.name + ' %s.' % motif
+        tweet += '{} ha matado a {} {}.'.format(assasinpy, victimpy, motif)
         victimpy.isAlive = False
 
         # Transfer of stats
@@ -49,7 +57,7 @@ class Assassination:
         if len(surviors) == 1:  # should be empty after the last standoff
             stats.omedetoo = True
             stats.winner = assasinpy
-        return "{:1.4f}".format(assasinpy.percKill) + " : " + "{:1.4f}".format(assasinpy.percVictim) + " " + tweet
+        return tweet
 
     def get_frequency(self):
         return self.frequency
@@ -59,11 +67,17 @@ class Coffee:
     flavour_file = COFFEEFILE
 
     def __init__(self, frequency, col, picker):
-        self.frequency = frequency
+        if picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.lastTweet = ""
         self.curretTweet = ""
         self.colosseum = col
         self.picker = picker
+        self.coffees = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
         self.coffees = InputKun.read_file(self.flavour_file)
 
     def bang(self):
@@ -77,11 +91,11 @@ class Coffee:
 
         for i in range(0, len(drinkers)):
             if i == len(drinkers) - 1:
-                tweet += drinkers[i].name + " "
+                tweet += str(drinkers[i]) + " "
             elif i == len(drinkers) - 2:
-                tweet += drinkers[i].name + " y "
+                tweet += str(drinkers[i]) + " y "
             else:
-                tweet += drinkers[i].name + ", "
+                tweet += str(drinkers[i]) + ", "
 
         if len(self.coffees) < 1:
             self.coffees.append("ido a tomar un [404: edible item missing]")
@@ -111,9 +125,15 @@ class Suicide:
     flavour_file = SUICIDEFILE
 
     def __init__(self, frequency, col, killer_picker):
-        self.frequency = frequency
+        if killer_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.killerPicker = killer_picker
+        self.suicides = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
         self.suicides = InputKun.read_file(self.flavour_file)
 
     def bang(self):
@@ -138,7 +158,7 @@ class Suicide:
 
         if len(self.suicides) < 1:
             self.suicides.append("inició su secuencia de autodestrucción con éxito. Enhorabuena! #UnexpectedSkynet")
-        tweet = suicidalpy.name + " " + random.choice(self.suicides)
+        tweet = "{} {}".format(suicidalpy, random.choice(self.suicides))
 
         return tweet
 
@@ -150,21 +170,27 @@ class Revive:
     flavour_file = REVIVEFILE
 
     def __init__(self, frequency, col, shaman_picker, corpse_picker):
-        self.frequency = frequency
+        if shaman_picker is None or corpse_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.corpsePicker = corpse_picker
         self.revives = InputKun.read_file(self.flavour_file)
 
+    def refresh(self):
+        self.revives = InputKun.read_file(self.flavour_file)
+
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo:
-            return "Se acabó pinche"
+            raise EventError("Omedetoo! Git out!")
 
         surviors = self.colosseum.get_survivors()
         corpses = self.colosseum.get_corpses()
 
-        if len(corpses)==0:
+        if len(corpses) == 0:
             return "Me comentan que alguien intentaba revivir a otro alguien, pero todos estamos vivos. Por motivos de RGPD no revelaré nombres."
 
         shamanpy = self.shamanPiker.pick(surviors)
@@ -186,7 +212,7 @@ class Revive:
 
         if len(self.revives) < 1:
             self.revives.append(". Alabado sea Gilgamesh.")
-        tweet = shamanpy.name + " ha revivido a " + corpsepy.name + random.choice(self.revives)
+        tweet = "{} ha revivido a {}{}".format(shamanpy, corpsepy, random.choice(self.revives))
 
         return tweet
 
@@ -198,16 +224,22 @@ class Curse:
     flavour_file = CURSEFILE
 
     def __init__(self, frequency, col, shaman_picker, cursed_picker):
-        self.frequency = frequency
+        if shaman_picker is None or cursed_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.cursedPicker = cursed_picker
         self.curses = InputKun.read_file(self.flavour_file)
 
+    def refresh(self):
+        self.curses = InputKun.read_file(self.flavour_file)
+
     def bang(self):
         stats = self.colosseum.stats
         if stats.omedetoo or stats.alive < 2:
-            return "Se acabó pinche"
+            raise EventError("Omedetoo! Git out!")
 
         surviors = self.colosseum.get_survivors()
 
@@ -221,7 +253,43 @@ class Curse:
 
         if len(self.curses) < 1:
             self.curses.append(". Se ha convertido en un imán para el peligro")
-        tweet = shamanpy.name + " le ha lanzado una maldición a " + acursedpy.name + random.choice(self.curses)
+        tweet = "{} le ha lanzado una maldición a {}{}".format(shamanpy, acursedpy, random.choice(self.curses))
+
+        return tweet
+
+    def get_frequency(self):
+        return self.frequency
+
+
+class Draw:
+    flavour_file = DRAWFILE
+
+    def __init__(self, frequency, col, killer_picker, victim_picker):
+        if killer_picker is None or victim_picker is None or col is None:
+            raise EventError("Init error: Null parameters passed to the constructor method")
+
+        self.frequency = frequency if not frequency is None else 1
+        self.colosseum = col
+        self.killer_picker = killer_picker
+        self.victim_picker = victim_picker
+        self.draws = InputKun.read_file(self.flavour_file)
+
+    def refresh(self):
+        self.draws = InputKun.read_file(self.flavour_file)
+
+    def bang(self):
+        stats = self.colosseum.stats
+        if stats.omedetoo or stats.alive < 2:
+            raise EventError("Omedetoo! Git out!")
+
+        surviors = self.colosseum.get_survivors()
+
+        killer = self.killer_picker.pick(surviors)
+        victim = self.victim_picker.pick(surviors)
+
+        if len(self.draws) < 1:
+            self.draws.append(". Alto! Parece que no ha muerto! Con algo de suerte vivirá para luchar un día más")
+        tweet = "{} le ha disparado y derribado a {}{}".format(killer, victim, random.choice(self.draws))
 
         return tweet
 
