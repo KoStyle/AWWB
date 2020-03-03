@@ -82,6 +82,7 @@ def reload_files():
     if colosseum is None:
         colosseum = Colosseum()
     colosseum.refresh_flavours()
+    OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
 
 
 def presentation(live=False):

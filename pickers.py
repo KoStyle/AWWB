@@ -2,6 +2,9 @@ import random
 
 
 # TODO Fusion KillerPicker and VictimPicker into a generic StatPicker using __getAttrib__
+from errors import PickerError
+
+
 class KillerPicker:
 
     def pick(self, harpies):

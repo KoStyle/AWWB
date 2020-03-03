@@ -6,7 +6,7 @@ class EventError(Exception):
 class BangError(Exception):
     pass
 
-class PickError(Exception):
+class PickerError(Exception):
     pass
 
 class InvalidAdjustError(Exception):

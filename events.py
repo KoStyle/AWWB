@@ -173,7 +173,7 @@ class Revive:
         if shaman_picker is None or corpse_picker is None or col is None:
             raise EventError("Init error: Null parameters passed to the constructor method")
 
-        self.frequency = frequency if not frequency is None else 1
+        self.frequency = frequency if frequency is not None else 1
         self.colosseum = col
         self.shamanPiker = shaman_picker
         self.corpsePicker = corpse_picker

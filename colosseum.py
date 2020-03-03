@@ -133,3 +133,7 @@ class Colosseum:
                 xl, yl = font.getsize(self.harpies[i].name)
                 draw.line((x, y, x + xl, y + yl), (255, 0, 0), 5)
         pic.save(IMG + PNG)
+
+    def refresh_flavours(self):
+        for event in self.events:
+            event.refresh()
