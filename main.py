@@ -2,7 +2,7 @@ import sys
 from time import sleep
 
 from colosseum import Colosseum
-from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK, FILES
+from constants import COLOSSEUM, LOGDIR, QUEUEDIR, PNG, IMG, PICK, FILES, PROBFILE
 from io_sama import InputKun, OutputChan
 
 
@@ -36,9 +36,7 @@ from io_sama import InputKun, OutputChan
 
 
 def stateful_call(tweet_for_real=True):
-    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
-    if colosseum is None:
-        colosseum = Colosseum()
+    colosseum = load_colosseum()
 
     ruta_img = IMG + PNG
     if not colosseum.is_over():
@@ -78,18 +76,13 @@ def test_tweet_api_img():
 
 
 def reload_files():
-    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
-    if colosseum is None:
-        colosseum = Colosseum()
+    colosseum = load_colosseum()
     colosseum.refresh_flavours()
     OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
 
 
 def presentation(live=False):
-    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
-    if colosseum is None:
-        colosseum = Colosseum()
-        OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
+    colosseum = load_colosseum()
 
     presentations = colosseum.get_presentations()
 
@@ -100,6 +93,24 @@ def presentation(live=False):
     for present in presentations:
         OutputChan.tweet_text(present, live)
         sleep(1)
+
+
+def load_colosseum():
+    colosseum = InputKun.load_pickle(FILES + COLOSSEUM + PICK)
+    if colosseum is None:
+        colosseum = Colosseum()
+
+    return colosseum
+
+
+def update_probabilities():
+    colosseum = load_colosseum()
+    new_probabilities = InputKun.read_file(PROBFILE)
+    for line in new_probabilities:
+        tokens = line.split('=')
+        colosseum.update_event_probability(tokens[0].strip(), float(tokens[1].strip()))
+
+    OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
 
 
 if __name__ == "__main__":
@@ -120,5 +131,7 @@ if __name__ == "__main__":
         presentation(True)
     elif mode == "reload_files":
         reload_files()
+    elif mode == "update_probs":
+        update_probabilities()
     else:
         print("I did nuthing")

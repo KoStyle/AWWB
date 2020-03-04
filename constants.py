@@ -15,6 +15,7 @@ REVIVEFILE = FILES + "revive.txt"
 SUICIDEFILE = FILES + "suicide.txt"
 CURSEFILE = FILES + "curse.txt"
 DRAWFILE = FILES + "draw.txt"
+PROBFILE = FILES + "probability.txt"
 
 TXT = '.txt'
 PNG = '.png'

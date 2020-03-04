@@ -137,3 +137,8 @@ class Colosseum:
     def refresh_flavours(self):
         for event in self.events:
             event.refresh()
+
+    def update_event_probability(self, event_name, prob):
+        for x in self.events:
+            if x.__class__.__name__.lower() == event_name.lower():
+                x.frequency = prob

@@ -212,7 +212,7 @@ class Revive:
 
         if len(self.revives) < 1:
             self.revives.append(". Alabado sea Gilgamesh.")
-        tweet = "{} ha revivido a {}{}".format(shamanpy, corpsepy, random.choice(self.revives))
+        tweet = "{} ha revivido a {} {}".format(shamanpy, corpsepy, random.choice(self.revives))
 
         return tweet
 
