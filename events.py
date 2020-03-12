@@ -44,8 +44,8 @@ class Assassination:
 
         # Transfer of stats
         assasinpy.percKill += victimpy.percKill
-        assasinpy.percVictim += victimpy.percVictim / 3.
-        victimpy.percVictim = 2 * (victimpy.percVictim / 3.)
+        assasinpy.percVictim += victimpy.percVictim * (2 / 3.)
+        victimpy.percVictim = victimpy.percVictim * (1 / 3.)
 
         surviors.append(assasinpy)  # We put it back in survivors so he can receive more victimness
         self.colosseum.share_attribute("percVictim", victimpy.percVictim, surviors)
@@ -201,6 +201,7 @@ class Revive:
 
         # We add the shaman back in the list so we can leech of him aswell
         surviors.append(shamanpy)
+
         corpsepy.percKill = self.colosseum.leech_attribute("percKill", 0.1, surviors)
         corpsepy.percVictim = self.colosseum.leech_attribute("percVictim", 0.1, surviors)
         corpsepy.isAlive = True

@@ -4,7 +4,7 @@ import random
 from PIL import Image, ImageDraw, ImageFont
 
 from classes import Status, Arpio
-from constants import IMG, PNG, FONT, HARPIESFILE
+from constants import IMG, PNG, FONT, HARPIESFILE, DEBUG
 from events import Assassination, Coffee, Suicide, Revive, Curse, Draw
 from io_sama import InputKun
 from pickers import KillerPicker, VictimPicker, RandomPicker
@@ -42,10 +42,17 @@ class Colosseum:
     def is_over(self):
         return self.stats.omedetoo
 
+    def show_me_them_stats(self):
+        for harpy in self.harpies:
+            if harpy.isAlive:
+                print("{0:6.4f} - {1:6.4f} ------ {2}".format(harpy.percKill, harpy.percVictim, harpy))
+
     def let_the_games_begin(self):
         if self.stats.omedetoo:
             return False
         else:
+            if DEBUG:
+                self.show_me_them_stats()
             event = self.i_command_you_to_pick_the_event()
             tweet = event.bang()
             # print(tweet)
@@ -142,3 +149,4 @@ class Colosseum:
         for x in self.events:
             if x.__class__.__name__.lower() == event_name.lower():
                 x.frequency = prob
+                print("Updated {} with {}".format(x.__class__.__name__, prob))

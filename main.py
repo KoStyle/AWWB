@@ -112,6 +112,9 @@ def update_probabilities():
 
     OutputChan.save_pickle(FILES + COLOSSEUM + PICK, colosseum)
 
+def print_status():
+    colosseum=load_colosseum()
+    colosseum.show_me_them_stats()
 
 if __name__ == "__main__":
     print(sys.argv[1])
@@ -133,5 +136,7 @@ if __name__ == "__main__":
         reload_files()
     elif mode == "update_probs":
         update_probabilities()
+    elif mode== "print_status":
+        print_status()
     else:
         print("I did nuthing")
